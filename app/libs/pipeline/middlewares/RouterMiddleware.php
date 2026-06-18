@@ -14,7 +14,7 @@ final class RouterMiddleWare extends Middleware implements InterfaceMiddleware{
     }
 
     public function process(Request $request, Response $response){
-        $controller = ucfirts($request->getController())."Controller";
+        $controller = ucfirst($request->getController())."Controller";
         $controller = "app\\core\\controllers\\" . $controller;
 
         if(!class_exists($controller) || !method_exists($controller, $request->getAction())){
