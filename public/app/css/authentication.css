@@ -1,0 +1,124 @@
+/* =========================
+IMPORTS
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+
+/* =========================
+VARIABLES (THEME)
+========================= */
+:root {
+    --color-body: #F2F1EC;
+    --color-texto: #1A2B3C;
+    --color-form: #FBF9F4;
+    --color-linea: #D1CEC7;
+    --color-azul-hover: #1a2b3ce0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lexend Tera", sans-serif;
+}
+
+.obligatorio{
+    color: red
+}
+
+
+
+#body-authentication {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-body);
+
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+
+#form-authentication {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5%;
+    background-color: var(--color-form);
+    box-shadow: 10px 10px 5px rgba(128, 128, 128, 0.651);
+    width: 30%;
+    height: 30em;
+    padding: 10px;
+}
+
+#form-authentication div {
+    margin: 5px auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#username,
+#password {
+    display: flex;
+    border: 0.5px solid var(--color-linea);
+    border-radius: 10px;
+    padding-left: 1em;
+    width: 100%;
+    height: 3em;
+    margin-bottom: 20px;
+}
+
+#btn-ingresar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 5em;
+    padding: 5px 5px;
+    color: white;
+    background-color: var(--color-texto)
+}
+
+#btn-ingresar:hover {
+    cursor: pointer;
+    background-color: var(--color-azul-hover);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.campo label {
+    margin-bottom: 10px;
+}
+
+.titulo {
+    font-size: 15px;
+
+}
+
+
+.nombre-pagina {
+    font-size: 40px;
+}
+
+.nombre-pagina,
+.titulo,
+.campo {
+    color: var(--color-texto);
+}
+
+
+@media (max-width:768px){
+
+    #btn-ingresar{
+        width: 100%;
+        padding: 12px;
+        margin: auto;
+    }
+}
