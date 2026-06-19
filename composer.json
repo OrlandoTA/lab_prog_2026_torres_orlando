@@ -1,0 +1,16 @@
+{
+    "name": "orlando/lab_prog_2026",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Orlando\\LabProg2026\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Orlando Torres",
+            "email": "armorlandot@gmail.com"
+        }
+    ],
+    "require": {}
+}
