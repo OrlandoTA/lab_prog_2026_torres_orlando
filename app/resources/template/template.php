@@ -20,20 +20,21 @@
 <body>
     <header>
         <?php
-            // require_once APP_DIR_TEMPLATE . "includes/menu.php";
-            // require_once APP_DIR_TEMPLATE . "includes/breadcrumb.php";
+            require_once APP_DIR_TEMPLATE . "includes/menu.php";
+            
         ?>
     </header>
-    <main>
+    <main class="seccion-principal" title="Contenido principal de la página">
         <div>
         <?php
+            require_once APP_DIR_TEMPLATE . "includes/breadcrumb.php";
             require_once APP_DIR_VIEWS . $this->view;
         ?>
         </div>
     </main>
     <footer>
         <?php
-            // require_once APP_DIR_TEMPLATE . "includes/footer.php";
+             require_once APP_DIR_TEMPLATE . "includes/footer.php";
         ?>
     </footer>
     <section>

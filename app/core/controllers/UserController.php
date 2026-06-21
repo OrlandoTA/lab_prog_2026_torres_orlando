@@ -3,6 +3,8 @@
 namespace app\core\controllers;
 
 use app\core\controllers\base\BaseController;
+use app\core\models\dto\UserDto;
+use app\core\services\UserService;
 use app\libs\http\Request;
 use app\libs\http\Response;
 
@@ -26,12 +28,15 @@ class UserController extends BaseController{
     }
 
     public function save(Request $request, Response $response){
+        var_dump($request->getDataFromInput());
+exit;
+        /*
         $data = $request->getDataFromInput();
         $dto = new UserDto($data);
         $service = new UserService();
         $service->save($dto);
         $response->setMessage("Se registró el usuario con éxito.");
-        $response->send();
+        $response->send();*/
     }
 
     public function edit(Request $request, Response $response){

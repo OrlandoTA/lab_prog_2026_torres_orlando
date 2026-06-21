@@ -89,8 +89,9 @@ export const userController = {
 
     resetForm: function () {
         //Se limpia el formulario
-        form.reset();
-
+        const form = document.querySelector('form');
+       // form.reset();
+        const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
         //Se deshabilitan los campos
         campos.forEach(campo => {
             campo.disabled = true;
@@ -105,7 +106,7 @@ export const userController = {
     },
 
     enableForm: function (enabled) {
-
+         const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
         campos.forEach(campo => {
             campo.disabled = !enabled;
         });

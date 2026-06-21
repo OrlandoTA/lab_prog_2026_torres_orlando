@@ -10,4 +10,4 @@
 
 
 
-<title>Bienvenido a Ink & Paper</title>
+<title>Ink & Paper</title>
