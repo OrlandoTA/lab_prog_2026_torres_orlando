@@ -13,7 +13,7 @@ use app\libs\http\Response;
 
 final class Pipeline {
     
-    private InterfaceMiddleware $first, $last;
+      private ?InterfaceMiddleware $first, $last;
     
     public function __construct(){
         $this->first = $this->last = null;

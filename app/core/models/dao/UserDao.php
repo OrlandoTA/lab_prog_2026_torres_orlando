@@ -1,7 +1,8 @@
 <?php
 
 namespace app\core\models\dao;
-
+use PDO;
+use app\core\models\dto\UserDto;
 use app\core\models\dao\base\BaseDao;
 use app\core\models\dao\base\InterfaceDao;
 
@@ -12,14 +13,16 @@ final class UserDao extends BaseDao implements InterfaceDao{
         parent::__construct($conn, "usuarios");
     }
 
-    public function load(int $id): array{
-        $sql = "SELECT nombres, apellido,cuenta, perfil FROM {$this->table} WHERE  id = :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt-> execute(['id' => $id]);
 
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $resultado;
+    public function load(int $id): array{
+        $sql = "SELECT * FROM {$this->table} WHERE id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
     }
+    
 
     public function save(array $data): void{
         $this->validateCuenta(0, $data['cuenta']);
@@ -31,14 +34,57 @@ final class UserDao extends BaseDao implements InterfaceDao{
     }
 
     public function update(array $data): void{
-        $this->validateCuenta(0,$data['codigo']);
-        $this->validateCorreo(0,$data['correo']);
-        $sql = "UPDATE{$this->table} SET( apellido = :apellido, nombres  = :nombres, cuenta  = :cuenta, perfil  = :perfil,clave =:clave, correo =:correo, estado= :estado, fechaAlta= :fechaAlta, resetPass=  :resetPass) WHERE id=:id";
-        
+
+        $this->validateCuenta($data['id'], $data['cuenta']);
+        $this->validateCorreo($data['id'], $data['correo']);
+
+        $sql = "UPDATE {$this->table}
+                SET apellido = :apellido,
+                    nombres = :nombres,
+                    cuenta = :cuenta,
+                    perfil = :perfil,
+                    clave = :clave,
+                    correo = :correo,
+                    estado = :estado,
+                    fechaAlta = :fechaAlta,
+                    resetPass = :resetPass
+                WHERE id = :id";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($data);
     }
 
+    public function login(string $cuenta): array{
+
+        $sql = "SELECT
+                    user.id,
+                    user.apellido,
+                    user.nombres,
+                    user.cuenta,
+                    user.clave,
+                    user.perfil,
+                    user.estado,
+                    user.resetPass
+                FROM usuarios AS user
+                WHERE (user.cuenta = :cuenta OR user.correo = :cuenta)";
+
+        $result = $this->selectQuery($sql, [
+            "cuenta" => $cuenta
+        ]);
+
+        if(count($result) !== 1){
+            throw new \Exception("El nombre de usuario o la contraseña no coinciden.");
+        }
+
+        return $result[0];
+    }
+
+    public function updatePassword(array $data): void{
+        $sql = "UPDATE {$this->table}";
+        $sql .= " SET clave =:clave";
+        $sql .= " WHERE id = :id";
+        $this->updateQuery($sql, $data);
+    }
 
 
     public function delete(int $id): void{
@@ -49,31 +95,47 @@ final class UserDao extends BaseDao implements InterfaceDao{
     }
 
     public function list(array $filters): array{
-        return searchByFilter($filters);
+        return $this->searchByFilter($filters);
     }
 
-    public function enable(UserDto $dto):void{
-        $sql = "UPDATE{$this->table} SET estado = 1 WHERE id = :id";
+public function enable(UserDto $dto): void{
 
-        $stmt = $this->conn-prepare($sql);
-        $stmt->execute(['id'=>$dto->getId()]);
+    $sql = "UPDATE {$this->table}
+            SET estado = 1
+            WHERE id = :id";
 
-    }
+    $stmt = $this->conn->prepare($sql);
 
-    public function disable(UserDto $dto):void{
+    $stmt->execute([
+        'id' => $dto->getId()
+    ]);
+}
 
-        $sql = "UPDATE{$this->table} SET estado = 0 WHERE id = :id";
-        
-        $stmt = $this->conn-prepare($sql);
-        $stmt->execute(['id' => $dto->getId()]);
-    }
+  public function disable(UserDto $dto): void{
 
-    public function reset(){
-        $sql = "UPDATE{$this->table} SET resetPass = 1 where id = :id";
-        
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['id' => $dto->getId()]);
-    }
+    $sql = "UPDATE {$this->table}
+            SET estado = 0
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->execute([
+        'id' => $dto->getId()
+    ]);
+}
+
+  public function reset(UserDto $dto): void{
+
+    $sql = "UPDATE {$this->table}
+            SET resetPass = 1
+            WHERE id = :id";
+
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->execute([
+        'id' => $dto->getId()
+    ]);
+}
 
 
 
@@ -105,7 +167,7 @@ final class UserDao extends BaseDao implements InterfaceDao{
         }
     }
 
-    private function searchByFilter(array $filters){
+    private function searchByFilter(array $filters):array{
 
 
        $condiciones= [];
@@ -144,5 +206,6 @@ final class UserDao extends BaseDao implements InterfaceDao{
             $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $resultado;
         }
+        return $resultado;
     }
 }

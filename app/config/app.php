@@ -7,6 +7,7 @@
 const APP_URL = 'http://localhost/lab_prog_2026_torres_orlando/public/';
 define('APP_URI', $_SERVER['DOCUMENT_ROOT'] . '/lab_prog_2026_torres_orlando/app/');
 
+
 //const APP_URL = "https://www.innotecsistemas.com.ar/apps/sipger/";
 //define('APP_URI', $_SERVER['DOCUMENT_ROOT'] . '/../sistemas/sipger/app/');
 

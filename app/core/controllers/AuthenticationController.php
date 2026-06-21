@@ -8,29 +8,30 @@ use app\libs\http\Request;
 use app\libs\http\Response;
 
 class AuthenticationController extends BaseController{
-    public function __construct(){
+public function __construct(){
 
-    }
+}
 
 
-    public function index(Request $request, Response $response){
-        require_once APP_FILE_LOGIN;
-    }
+public function index(Request $request, Response $response){
+    require_once APP_FILE_LOGIN;
+}
 
-    public function login(Request $request, Response $response){
-        $user = $_POST['user'];
-        $pass = $_POST['pass'];
-        $serive = new AuthenticationService();
-        $serive->login($user,$pass);
-        $request->setController(APP_DEFAULT_CONTROLLER);
-        $request->setAction(APP_DEFAULT_ACTION);
-        $this->setCurrentView($request);
-        require_once(APP_FILE_TEMPLATE);
-    }
+public function login(Request $request, Response $response){
 
-    public function logout(Request $request, Response $response){
-        $service = new AuthenticationService();
-        $serive->logout();
-        require_once(APP_FILE_LOGIN);
-    }
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
+    $service = new AuthenticationService();
+    $service->login($user,$pass);
+    $request->setController(APP_DEFAULT_CONTROLLER);
+    $request->setAction(APP_DEFAULT_ACTION);
+    $this->setCurrentView($request);
+    require_once(APP_FILE_TEMPLATE);
+}
+
+public function logout(Request $request, Response $response){
+    $service = new AuthenticationService();
+    $serive->logout();
+    require_once(APP_FILE_LOGIN);
+}
 }

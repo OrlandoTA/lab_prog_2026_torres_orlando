@@ -13,7 +13,7 @@ final class RouterMiddleWare extends Middleware implements InterfaceMiddleware{
         parent::__construct();
     }
 
-    public function process(Request $request, Response $response){
+    public function process(Request $request, Response $response):void{
         $controller = ucfirst($request->getController())."Controller";
         $controller = "app\\core\\controllers\\" . $controller;
 

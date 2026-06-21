@@ -15,7 +15,7 @@
 </head>
 <body id="body-authentication">
     
-<form action="../home/index.php" id="form-authentication" autocomplete="off" method="post">
+<form action="<?= APP_URL ?>?controller=authentication&action=login" id="form-authentication" autocomplete="off" method="post">
 
     <div class="nombre-pagina">
         <ion-icon id="page-icon" name="book-outline" title="Abrir o cerrar barra lateral"></ion-icon>
@@ -31,7 +31,7 @@
         <label for="username" class="sr-only" id="mail-label">
             Correo Electronico<span class="obligatorio">*</span>
         </label>
-        <input type="text" name="username" id="username" placeholder="correoelectronico@hotmail.com"
+        <input type="text" name="username" id="username"     placeholder="correoelectronico@hotmail.com"
             required minlength="5" maxlength="100"
             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}"
             title="Ingrese un correo electrónico válido">
@@ -40,7 +40,7 @@
         <input type="password" id="password" placeholder="***************"
             required minlength="8" maxlength="50"
             pattern=".{8,}"
-            title="La contraseña debe tener al menos 8 caracteres">
+            title="La contraseña debe tener al menos 8 caracteres" name="password" >
     </div>
 
     <div >

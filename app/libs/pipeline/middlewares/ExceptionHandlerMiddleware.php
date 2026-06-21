@@ -15,7 +15,7 @@ final class ExceptionHandlerMiddleware extends Middleware implements InterfaceMi
         parent::__construct();
     }
 
-    public function process(Request $request, Response $response){
+    public function process(Request $request, Response $response):void{
         try{
             $this->processNext($request, $response);
         } catch(\PDOException $ex){
@@ -24,7 +24,7 @@ final class ExceptionHandlerMiddleware extends Middleware implements InterfaceMi
                 $conn->rollBack();
             }
 
-            $response->setMessage($ex-> setMessage());
+            $response->setMessage($ex-> getMessage());
             $response->send(false);
         } catch(\Exception $ex){
             $conn = Connection::get();
@@ -32,7 +32,7 @@ final class ExceptionHandlerMiddleware extends Middleware implements InterfaceMi
                 $conn->rollBack();
             }
 
-            $response->setMessage($ex-> setMessage());
+        $response->setMessage($ex-> getMessage());
             $response->send(false);
         }
     }
