@@ -4,7 +4,7 @@ namespace app\core\services;
 
 use app\core\service\base\BaseService;
 use app\core\models\dao\UserDao;
-use app\libs\database\Conecction;
+use app\libs\database\Connection;
 use app\core\models\dto\UserDto;
 
 
@@ -14,7 +14,7 @@ final class UserService extends BaseService{
 
 
     function __construct(){
-        parent::__construct(new UserDao(connection::get()));
+        parent::__construct(new UserDao(Connection::get()));
     }
   
 
@@ -30,7 +30,7 @@ final class UserService extends BaseService{
 
 
     public function update(UserDto $dto): void{
-        $this->validateForUpdate($dao, $dto);
+        $this->validateForUpdate($dto);
 
         $this->dao-> update($dto->toArray());
     }

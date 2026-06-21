@@ -101,6 +101,17 @@ final class UserDto{
     }
 
     public function setClave(string $clave): void{
+
+        if(empty($clave)){
+            $this->clave = "";
+            return;
+        }
+
+        if(str_start_with($clave, '$2y$')){
+            $this->clave = $clave;
+            return;
+        }
+
         $this->clave = (strlen($clave) > 0 && strlen($clave) <= 20) ? Password::hash($clave) : "";
     }
 
