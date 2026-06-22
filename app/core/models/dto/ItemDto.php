@@ -62,9 +62,9 @@ final class ItemDto{
         $this->codigo = ($codigo > 0) ? $codigo : 0;
     }
 
-    public function setDescripcion(int $descripcion): void{
+    public function setDescripcion(string $descripcion): void{
         $descripcionTrimeado = trim($descripcion);
-        $this->descripcion = (strlen($descripcionTrimeado)>0 && strlen($nombreTrimeado)<=900) ? $nombreTrimeado: "";
+        $this->descripcion = (strlen($descripcionTrimeado)>0 && strlen($descripcionTrimeado)<=900) ? $descripcionTrimeado: "";
     }
 
 

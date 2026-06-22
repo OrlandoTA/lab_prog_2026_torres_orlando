@@ -1,7 +1,28 @@
-export const service = {
+export const itemService = {
     load: id => {
         return items.find(item => item.id === id);
     },
+
+
+    save: user => {
+    fetch('item/save', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log("RESPUESTA:");
+        console.log(data);
+    })
+    .catch(error => {
+        console.error("Ha ocurrido un error", error);
+    });
+},
+    /*
     save: item => {
         fetch('item/save', {
             method: "POST",
@@ -24,7 +45,7 @@ export const service = {
             }
         })
         .catch(error => { console.error("Ha ocurrido un error", error); });
-    },
+    },*/
     list: async filters => {
         let result = [];
         await fetch('item/list', {

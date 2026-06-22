@@ -3,7 +3,7 @@
 </div>
 
 <form action="<?= APP_URL ?>?controller=user&action=save" class="formulario-alta" title="Formulario para registrar un nuevo usuario" autocomplete="off"
-    method="post">
+    >
 
     <div class="fila">
         <div class="campo mitad">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="campo-botones  botones-alta"  id="contenedor-botones">
-        <button type="submit" class="btn-guardar" id="btn-guardarCambios" title="Guardar cambios realizados" data-tipo = "exito">
+        <button type="button" class="btn-guardar" id="btn-guardarCambios" title="Guardar cambios realizados" data-tipo = "exito">
             <ion-icon name="save-outline"></ion-icon>
                 Crear usuario
         </button>

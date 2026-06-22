@@ -3,6 +3,13 @@ import { userService } from './service.js';
 //Variable para guardar el id del usuario a actualizar
 var currentUserId = null;
 
+const form = document.querySelector("form");
+
+const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
+
+const btnExportar = document.getElementById('btn-exportar');
+
+
 
 //Se construye el objeto userController
 export const userController = {
@@ -33,12 +40,9 @@ export const userController = {
     },
 
     save: async function () {
-
         let data = Object.fromEntries(new FormData(form));
 
-
         await userService.save(data);
-
     },
 
     update: async function () {
@@ -76,7 +80,7 @@ export const userController = {
 
     exportPDF: function () {
 
-        const btnExportar = document.getElementById('btn-exportar');
+        
 
 
         if (!btnExportar) return;
@@ -88,10 +92,7 @@ export const userController = {
     },
 
     resetForm: function () {
-        //Se limpia el formulario
-        const form = document.querySelector('form');
-       // form.reset();
-        const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
+      
         //Se deshabilitan los campos
         campos.forEach(campo => {
             campo.disabled = true;
@@ -106,7 +107,7 @@ export const userController = {
     },
 
     enableForm: function (enabled) {
-         const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
+        
         campos.forEach(campo => {
             campo.disabled = !enabled;
         });

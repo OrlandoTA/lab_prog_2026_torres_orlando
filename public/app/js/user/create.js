@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Alerta de usuario creado con exito
     document.querySelector('form').onclick = () => {
+        const form = document.querySelector('form');
+
         form.addEventListener("submit", (e) => {
 
             //Evita que se envie instantaneamente
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-
-
+    document.getElementById('btn-guardarCambios').onclick = ()=>{
+        userController.save();
+    }
 });

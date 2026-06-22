@@ -17,29 +17,77 @@ class UserController extends BaseController{
 
     public function index(Request $request, Response $response){
         array_push($this->modules, "app/js/user/index.js");
+        
+    $this->breadcrumb = [
+            [
+                'title' => 'Inicio',
+                'icono' => 'home-outline',
+                'class' => 'firts',
+                'url' => APP_URL . '?controller=home&action=index',
+                
+            ],
+            [
+                'class' => 'last active',
+                'title' => 'Gestion de Usuarios',
+                'icono' => 'people-outline',
+            ],
+           
+        ];
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
 
     public function create(Request $request, Response $response){
         array_push($this->modules, "app/js/user/create.js");
+
+         $this->breadcrumb = [
+        [
+            'title' => 'Inicio',
+            'url' => APP_URL . '?controller=home&action=index',
+            'icono' => 'home-outline',
+            'class' => 'firts',
+        ],
+        [
+            'title' => 'Gestion de Usuarios',
+            'url' => APP_URL . '?controller=user&action=index',
+            'icono' => 'people-outline',
+        ],
+        [
+            'class' => 'last active',
+            'title' => 'Alta de usuario'
+        ]
+    ];
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
 
     public function save(Request $request, Response $response){
-        var_dump($request->getDataFromInput());
-exit;
-        /*
+ 
         $data = $request->getDataFromInput();
         $dto = new UserDto($data);
         $service = new UserService();
         $service->save($dto);
         $response->setMessage("Se registró el usuario con éxito.");
-        $response->send();*/
+        $response->send();
     }
 
     public function edit(Request $request, Response $response){
+    
+        $this->breadcrumb = [
+            [
+                'title' => 'Inicio',
+                'url' => APP_URL . '?controller=home&action=index'
+            ],
+            [
+                'title' => 'Usuarios',
+                'url' => APP_URL . '?controller=user&action=index'
+            ],
+            [
+                'title' => 'Editar de usuario'
+            ]
+        ];
+
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -74,5 +122,6 @@ exit;
     public function suggestive(Request $request, Response $response){
 
     }
+
 
 }

@@ -1,7 +1,8 @@
 <?php
 
 namespace app\core\models\dao;
-
+use PDO;
+use app\core\models\dto\ItemDto;
 use app\core\models\dao\base\BaseDao;
 use app\core\models\dao\base\InterfaceDao;
 

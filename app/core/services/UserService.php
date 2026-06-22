@@ -2,7 +2,7 @@
 
 namespace app\core\services;
 
-use app\core\service\base\BaseService;
+use app\core\services\base\BaseService;
 use app\core\models\dao\UserDao;
 use app\libs\database\Connection;
 use app\core\models\dto\UserDto;

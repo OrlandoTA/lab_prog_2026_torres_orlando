@@ -2,6 +2,7 @@ export const userService = {
     load: id => {
         return users.find(user => user.id === id);
     },
+    
     save: user => {
         fetch('user/save', {
             method: "POST",
@@ -25,6 +26,7 @@ export const userService = {
             })
             .catch(error => { console.error("Ha ocurrido un error", error); });
     },
+    
     list:  filters => {
         let result = [];
         fetch('user/list', {

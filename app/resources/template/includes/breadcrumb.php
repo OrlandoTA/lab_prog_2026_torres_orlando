@@ -1,17 +1,33 @@
 <nav aria-label="Breadcrumb" class="breadcrumb">
-    <ol>
-        <li class="first">
-            <a href="<?= APP_URL ?>?controller=home&action=index">
-                <ion-icon name="home-outline" title="Inicio"></ion-icon>
-                Inicio
-            </a>
-        </li>
-        <li>
-            <a href="<?= APP_URL ?>?controller=user&action=index">> 
-                <ion-icon name="people-outline" title="Usuarios"></ion-icon>
-                Gestión de Usuarios
-            </a>
-        </li>
-        <li class="last active"><span aria-current="page">Alta de usuario</span></li>
+       <ol>
+
+        <?php foreach($this->breadcrumb as $item): ?>
+
+            <li class="<?= $item['class'] ?? '' ?>">
+
+                <?php if(isset($item['url'])): ?>
+
+                    <a href="<?= $item['url'] ?>">
+
+                        <?php if(isset($item['icono'])): ?>
+                            <ion-icon name="<?= $item['icono'] ?>"></ion-icon>
+                        <?php endif; ?>
+
+                        <?= $item['title'] ?>
+
+                    </a>
+
+                <?php else: ?>
+
+                    <span aria-current="page">
+                        <?= $item['title'] ?>
+                    </span>
+
+                <?php endif; ?>
+
+            </li>
+
+        <?php endforeach; ?>
+
     </ol>
 </nav>

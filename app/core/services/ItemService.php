@@ -2,14 +2,14 @@
 
 namespace app\core\services;
 
-use app\core\service\base\BaseService;
+use app\core\services\base\BaseService;
 use app\core\models\dao\ItemDao;
-use app\libs\database\Conecction;
+use app\libs\database\Connection;
 use app\core\models\dto\ItemDto;
 
 
 //El servicio llama al dao en list 
-final class ItemSerice extends BaseService{
+final class ItemService extends BaseService{
 
     function __construct(){
         parent::__construct(new ItemDao(connection::get()));

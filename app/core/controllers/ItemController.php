@@ -17,12 +17,43 @@ class ItemController extends BaseController{
 
     public function index(Request $request, Response $response){
         array_push($this->modules, "app/js/item/index.js");
+        $this->breadcrumb =  [
+            [
+                'title' => 'Inicio',
+                'icono' => 'home-outline',
+                'class' => 'firts',
+                'url' => APP_URL . '?controller=home&action=index',
+            ],
+            [
+                'class' => 'last active',
+                'title' => 'Gestión de productos',
+            ] 
+        ];
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
 
     public function create(Request $request, Response $response){
         array_push($this->modules, "app/js/item/create.js");
+        $this->breadcrumb = [
+        [
+            'title' => 'Inicio',
+            'icono' => 'home-outline',
+            'class' => 'firts',
+            'url' => APP_URL . '?controller=home&action=index'
+        ],
+        [
+            'title' => 'Productos',
+             'icono'=> 'basket-outline',
+            'url' => APP_URL . '?controller=item&action=index'
+        ],
+        [
+            'class' => 'last active',
+            'title' => 'Crear producto'
+        ]
+    ];
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -37,6 +68,23 @@ class ItemController extends BaseController{
     }
 
     public function edit(Request $request, Response $response){
+         array_push($this->modules, "app/js/item/edit.js");
+        $this->breadcrumb = [
+            [
+                'title' => 'Inicio',
+                'icono' => 'home-outline',
+                'class' => 'firts',
+                'url' => APP_URL . '?controller=home&action=index'
+            ],
+            [
+                'title' => 'Productos',
+                'url' => APP_URL . '?controller=item&action=index'
+            ],
+            [
+            'class' => 'last active',
+                'title' => 'Editar producto'
+            ]
+        ];
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }

@@ -18,15 +18,15 @@ class BaseController{
         $this->scripts = $scripts;
         $this->modules = $modules;
         $this->modals = $modals;
-        $this->breadCrumb = [
-            "title" => "",
-            "icon" => "",
-            "nav" => []
-        ];
+        $this->breadCrumb = [ ];
     }
 
     protected function setCurrentView(Request $request): void{
         $this->view = $request->getController() . '/' . $request->getAction() . '.php';
+    }
+
+    protected function setBreadCrumb(){
+        $this->breadCrumb = $breadCrumb;
     }
 
 }
