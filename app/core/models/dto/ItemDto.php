@@ -6,16 +6,17 @@ namespace app\core\models\dto;
 final class ItemDto{
 
     private string  $nombre, $codigo, $descripcion;
-    private int $id, $categoriaId, $stock;
+    private int $id, $stock;
     private float $precio;
+    private array $categorias;
 
     public function __construct(array $data = [])
     {
         $this->setNombre($data['nombre'] ?? '');
         $this->setCodigo($data['codigo']?? '');
-        $this-> setDescripcion($data['descripcion'] ?? '');
+        $this->setDescripcion($data['descripcion'] ?? '');
+        $this->setCategorias($data['categorias'] ?? []);
         $this->setId($data['id'] ?? 0);
-        $this->setCategoriaId($data['categoriaId'] ?? 0);
         $this->setStock($data['stock'] ?? 0);
         $this->setPrecio($data['precio'] ?? 0.0);
     }
@@ -42,8 +43,8 @@ final class ItemDto{
         return $this->precio;
     }
     
-    public function getCategoriaId(): int{
-        return $this->categoriaId;
+    public function getCategorias():array{
+        return $this->categorias;
     }
 
     public function getStock(): int{
@@ -58,7 +59,7 @@ final class ItemDto{
         $this->id = ($id > 0) ? $id : 0;
     }
 
-    public function setcodigo(int $codigo): void{
+    public function setcodigo(string $codigo): void{
         $this->codigo = ($codigo > 0) ? $codigo : 0;
     }
 
@@ -67,7 +68,9 @@ final class ItemDto{
         $this->descripcion = (strlen($descripcionTrimeado)>0 && strlen($descripcionTrimeado)<=900) ? $descripcionTrimeado: "";
     }
 
-
+    public function setCategorias(array $categorias):void{
+        $this->categorias = $categorias;
+    }
     public function setNombre(string $nombre): void{
         $nombreTrimeado = trim($nombre);
         $this->nombre = (strlen($nombreTrimeado) > 0 && strlen($nombreTrimeado) <= 100) ? $nombreTrimeado : "";
@@ -77,33 +80,35 @@ final class ItemDto{
         $this->precio = ($precio >= 0.0) ? $precio: 0;
     }
 
-    public function setCategoriaId(int $categoriaId): void{
-       $this->$categoriaId = ($categoriaId > 0) ? $categoriaId : 0;
-    }
 
     public function setStock(string $stock): void{
-      $this->$stock = ($stock > 0)? $stock :  0;
+      $this->stock = ($stock > 0)? $stock :  0;
     }
 
     public function toArray(){
         return [
             'id'        => $this->getId(),
-            'categoriaId'  => $this->getCategoriaId(),
             'nombre'   => $this->getNombre(),
             'stock'    => $this->getStock(),
             'precio'    => $this->getPrecio(),
-            'codigo'     => $this->getCodigo(),
             'descripcion'    => $this->getDescripcion(),
         ];
     }
 
     public function toArrayForSave(){
         return [
+            'codigo'     => $this->getCodigo(), 
             'stock'  => $this->getStock(),
             'nombre'   => $this->getNombre(),
             'precio'    => $this->getPrecio(),
             'descripcion'    => $this->getDescripcion(),
-            'categoriaId'     => $this->getCategoriaId(),
+        ];
+    }
+
+    public function toArrayForRelation(){
+        return [
+            'id' => $this->getId(),
+            'categorias'  => $this->getCategorias(),
         ];
     }
 

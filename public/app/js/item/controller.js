@@ -1,4 +1,5 @@
 import { itemService } from './service.js';
+import { view } from './view.js';
 
 //Variable para guardar el id del Producto a actualizar
 var currentItemId = null;
@@ -17,25 +18,9 @@ export const itemController = {
     load: async function (id) {
 
         currentItemId = id;
-
-        const item = await itemService.load(id);
-
-        //Validacion si existe el Producto
-        if (!item) {
-            alert('Producto no encontrado');
-            return;
-        }
-
-
-        //Se muestra los datos del Producto
-
-        inputNombre.value = item.nombre;
-        inputCodigo.value = item.codigo;
-        inputPrecio.value = item.precio;
-        inputDescripcion.value = item.fechaAlta;
-        selectCategoria.value = item.Categoria;
-        inputStock.value = item.stock;
-
+        
+        const item =  await itemService.load(id);
+        view.editItems(item);
 
     },
 
@@ -60,9 +45,10 @@ export const itemController = {
 
     },
 
-    list: async function (filters = {}) {
-        const items = await itemService.list(filters);
-        console.table(items);
+    list: async ()=> {
+        let filters = {};
+        let items = await itemService.list(filters);
+        view.listItems(items);
 
     },
 
@@ -108,58 +94,6 @@ export const itemController = {
         });
     },
 
-    renderTable(items) {
-
-        const tbody = document.getElementById('tbody-productos');
-
-        tbody.innerHTML = '';
-
-        items.forEach(item => {
-
-            tbody.innerHTML += `
-            <tr>
-
-                <td>
-                ${item.nombre}
-                </td>
-
-                <td>
-                    ${item.codigo}
-                </td>
-
-                <td>
-                    ${item.descipcion}
-                </td>
-
-                <td>
-                    ${item.precio}
-                </td>
-
-                <td>
-                    ${item.stock}
-                </td>
-
-                <td class="celda-boton">
-
-                    <button
-                        class="btn btn-editar"
-                        data-id="${item.id}">
-
-                        <ion-icon
-                            name="pencil-outline">
-                        </ion-icon>
-
-                    </button>
-
-                </td>
-
-            </tr>
-        `;
-
-        });
-
-        this.bindEditButtons();
-
-    }
+    
 
 }

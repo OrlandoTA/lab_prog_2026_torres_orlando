@@ -2,57 +2,47 @@
     <h1 title="Formulario de alta de producto">Editar de producto</h1>
 </div>
 
-<form action="" class="formulario-alta" title="Formulario de edición de producto" autocomplete="off">
+<form action="" class="formulario-alta" title="Formulario de edición de producto" autocomplete="off" name="formEditItems">
 
     <div class="fila">
         <div class="campo mitad">
-            <label title="Nombre del producto" value="Romeo y Julieta">Nombre</label>
+            <label title="Nombre del producto" value="">Nombre</label>
             <input type="text" required disabled title="No editable" minlength="2" maxlength="100"
-                pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+" value="Romeo y Julieta">
+                pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+" name="nombre" value="">
+        </div>       
+
+    </div>
+    <div class="fila">
+        <div class="campo mitad">
+            <label for="input-precio" title="Ingrese el precio del producto">Precio: $</label>
+            <input name="precio" type="number" id="input-precio" required min="0" max="1000000" step="0.01"
+                title="Ingrese el precio en números (mayor o igual a 0)" value="" disabled>
         </div>
         <div class="campo mitad">
-            <label title="Nombre del producto" value="William Shakespeare">Autor</label>
-            <input type="text" required disabled title="No editable" minlength="2" maxlength="100"
-                pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+" value="William Shakespeare">
-        </div>
-        <div class="campo mitad">
-            <label title="Código del producto" value="003">Código</label>
-            <input type="text" required disabled title="No editable" minlength="3" maxlength="15"
-                pattern="[A-Za-z0-9]+"   value="003">
-        </div>
-        <div class="campo mitad">
-            <label title="Código ISBN" value="ZZ8902"> ISBN</label>
-            <input type="text" required disabled title="No editable" minlength="3" maxlength="15"
-                pattern="[A-Za-z0-9]+" value="ZZ8902">
+            <label for="input-stock" title="Ingrese el stock disponible">Stock:</label>
+            <input value="" disabled name="stock" type="number" id="input-stock" required min="0" max="10000" title="Ingrese la cantidad disponible (número entero mayor o igual a 0)">
         </div>
     </div>
-
     <div class="campo">
-        <label title="Descripción del producto" value="Cuento de romance">Descripción</label>
-        <textarea class="descripcion-producto" disabled title="No editable" required minlength="10" maxlength="200">Romeo y Julieta es una tragedia de William Shakespeare (aprox. 1595) sobre dos jóvenes amantes, Romeo Montesco y Julieta Capuleto, cuyas familias en Verona sostienen una antigua enemistad. Su amor apasionado y secreto, sellado con un matrimonio rápido, se enfrenta al destino y al odio familiar, culminando en un doble suicidio que finalmente reconcilia a sus familias.
+        <label title="Descripción del producto" value="">Descripción</label>
+        <textarea name="descripcion" class="descripcion-producto" disabled title="No editable" value="" required minlength="10" maxlength="200">
+
         </textarea>
     </div>
 
     <div class="campo">
-        <label title="Seleccione una o más categorías">Categoria</label>
+        <label title="Seleccione una o más categorías">Categoria<span class="obligatorio">*</span></label>
         <div class="grupo-checkbox">
-            <label title="Categoría Romance">
-                <input type="checkbox" name="Categoria" value="Romance" disabled> Romance
-            </label>
-            <label title="Categoría Comedia">
-                <input type="checkbox" name="Categoria" value="comedia" disabled> Comedia
-            </label>
-            <label title="Categoría Thriller">
-                <input type="checkbox" name="Categoria" value="thriller" disabled> Thriller
-            </label>
-            <label title="Categoría Terror">
-                <input type="checkbox" name="Categoria" value="terror"disabled> Terror
-            </label>
-            <label title="Categoría Suspenso">
-                <input type="checkbox" name="Categoria" value="Suspenso" disabled> Suspenso
-            </label>
+            <select name="categorias[]" id="categorias-select" multiple size="5" >
+                <?php foreach ($this->categorias as $categoria): ?>
+                    <option value="<?= $categoria['id'] ?>">
+                        <?= $categoria['nombre'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
+
     <div class="campo-botones">
         <button  type="button"  onclick="window.location.href='index.php'" class="btn-volver" title="Volver al listado de usuarios">
             <ion-icon name="arrow-back-circle-outline"></ion-icon>

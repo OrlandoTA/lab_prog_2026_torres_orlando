@@ -1,7 +1,7 @@
 <?php
 
 namespace app\core\services;
-
+use app\core\models\dao\CategoryProductDao;
 use app\core\services\base\BaseService;
 use app\core\models\dao\ItemDao;
 use app\libs\database\Connection;
@@ -32,8 +32,7 @@ final class ItemService extends BaseService{
 
     public function delete(ItemDto $dto):void{
         $this->validateForDelete($dto);
-
-        $this -> dao -> delete($dto->getId());
+        $this->dao->delete($dto->getId());
     }
 
     public function list(array $filters):array{

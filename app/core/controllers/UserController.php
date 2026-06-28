@@ -18,7 +18,7 @@ class UserController extends BaseController{
     public function index(Request $request, Response $response){
         array_push($this->modules, "app/js/user/index.js");
         
-    $this->breadcrumb = [
+        $this->breadcrumb = [
             [
                 'title' => 'Inicio',
                 'icono' => 'home-outline',
@@ -33,6 +33,11 @@ class UserController extends BaseController{
             ],
            
         ];
+
+        $service = new UserService();
+        
+
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -71,8 +76,20 @@ class UserController extends BaseController{
         $response->send();
     }
 
+    public function load(Request $request, Response $response){
+        $data = $request->getDataFromInput();
+
+        $dto = new UserDto(['id' => $data['id']]);
+        $service = new UserService();
+
+        $response->setData($service->load($dto)) ;
+
+        $response->send();
+    }
+
+
     public function edit(Request $request, Response $response){
-    
+        array_push($this->modules, "app/js/user/edit.js");
         $this->breadcrumb = [
             [
                 'title' => 'Inicio',
@@ -94,21 +111,22 @@ class UserController extends BaseController{
 
     public function update(Request $request, Response $response){
         $data = $request->getDataFromInput();
-        $dto = new UserDto($data);
+       $dto = new UserDto($data);
         $service = new UserService();
         $service->update($dto);
-        $response->setMessage('Se actualizo el usuario con exito.');
+   
         $response->send(); 
     }
 
     public function delete(Request $request, Response $response){
-        $id = $request->getId();
+        $data = $request->getDataFromInput();
+
         $dto = new UserDto([
-            'id' =>$id,
+            'id' =>$data['id'],
         ]);
         $service = new UserService();
         $service->delete($dto);
-        $response->setMessage('Se elimino el usuario con exito.');
+
         $response->send();
     }
 

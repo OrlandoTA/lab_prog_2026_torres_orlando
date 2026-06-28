@@ -29,21 +29,13 @@
     <div class="campo">
         <label title="Seleccione una o más categorías">Categoria <span class="obligatorio">*</span></label>
         <div class="grupo-checkbox">
-            <label title="Categoría Romance">
-                <input type="checkbox" name="categoriaId" value="1"> Romance
-            </label>
-            <label title="Categoría Comedia">
-                <input type="checkbox" name="categoriaId" value="2"> Comedia
-            </label>
-            <label title="Categoría Thriller">
-                <input type="checkbox" name="categoriaId" value="3"> Thriller
-            </label>
-            <label title="Categoría Terror">
-                <input type="checkbox" name="categoriaId" value="4"> Terror
-            </label>
-            <label title="Categoría Suspenso">
-                <input type="checkbox" name="categoriaId" value="5"> Suspenso
-            </label>
+            <select name="categorias[]" id="categorias-select" multiple size="5" >
+                <?php foreach ($this->categorias as $categoria): ?>
+                    <option value="<?= $categoria['id'] ?>">
+                        <?= $categoria['nombre'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
 

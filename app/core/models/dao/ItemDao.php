@@ -14,51 +14,43 @@ final class ItemDao extends BaseDao implements InterfaceDao{
     }
 
     public function load(int $id): array{
-        $sql = "SELECT (nombre, descripcion, precio) WHERE id = :id";
-        $stmt = $this->con->prepare($sql); 
-        $stmt = $this->execute(['id'=>$id]);
+        $sql = "SELECT nombre, descripcion, precio, stock FROM {$this->table} WHERE id = :id";
+        return $this->selectQuery($sql, ['id' => $id]); 
 
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $resultado;
-
-        //$this->selectQuery($sql,[])[0]
+        //$this->selectQuery($sql,[])
     }
 
     public function save(array $data): void{
-        $this->validateCodigo(0, $data['codigo']);
 
-        $sql = "INSERT INTO {$this->table} VALUES(DEFAULT, :nombre, :codigo, :descripcion, :categoriaId, :precio, :stock)";
+        $sql = "INSERT INTO {$this->table} VALUES(DEFAULT, :nombre, :codigo, :descripcion, :precio, :stock)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($data);
     }
 
     public function update(array $data): void{
-        $this->validateCodigo(0,$data['codigo']);
 
-        $sql = "UPDATE{$this->table} SET(nombre = :nombre, codigo =:codigo, descripcion =:descripcion, categoriaId =:categoriaId, precio =:precio, stock =:stock) WHERE id=:id";
-        
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute($data);
+        $sql = "UPDATE {$this->table} SET  
+                    nombre =:nombre,  
+                    descripcion =:descripcion, 
+                    precio =:precio, 
+                    stock =:stock 
+                WHERE id =:id";
+        $this->updateQuery($sql, $data);
     }
 
 
-    //Preguntar al profesor si esta bien
+  
     public function delete(int $id): void{
 
-  
-        $sql = "DELETE FROM productos WHERE id = $id";
+        $sql = "DELETE FROM {$this->table} WHERE id = $id";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute($id);
+        $stmt->execute(['id' => $id]);
 
     }
 
     public function list(array $filters): array{
-        return searchByFilter($filters);
+        return $this->searchByFilter($filters);
     }
-
-
-
 
     private function validateCodigo(int $id, string $codigo): void{
         $sql = "SELECT id FROM {$this->table} WHERE codigo = :codigo && id != :id";
@@ -73,7 +65,7 @@ final class ItemDao extends BaseDao implements InterfaceDao{
     }
 
     //Metodo para buscar con los filtros 
-    private function searchByFilter(array $filters){
+    private function searchByFilter(array $filters):array{
 
 
        $condiciones= [];

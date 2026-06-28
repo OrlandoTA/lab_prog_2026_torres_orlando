@@ -43,23 +43,18 @@
 
     <div class="contenedor-tabla">
         <table class="tabla" title="Tabla con listado de productos">
-            <tr>
-                <th title="Nombre del producto">NOMBRE</th>
-                <th title="Código del producto">CÓDIGO</th>
-                <th title="Descripción del producto">DESCRIPCIÓN</th>
-                <th title="Categoría del producto">CATEGORIA</th>
-                <th title="Precio del producto">PRECIO</th>
-                <th title="Cantidad disponible en stock">STROCK</th>
-                <th title="Opciones disponibles">OPCIONES</th>
-            </tr>
-            <tbody id="tbody-productos">
-                    <td class="celda-boton" title="Opciones del usuario">
-                        <button type="button" onclick="window.location.href='edit.php'" class="btn btn-editar"
-                            title="Editar usuario seleccionado">
-                            <ion-icon name="pencil-outline"></ion-icon>
-                        </button>
-                    </td>
+           <thead>
+                <tr>
+                    <th title="Nombre del producto">NOMBRE</th>
+                    <th title="Código del producto">CÓDIGO</th>
+                    <th title="Descripción del producto">DESCRIPCIÓN</th>
+                    <th title="Precio del producto">PRECIO</th>
+                    <th title="Cantidad disponible en stock">STROCK</th>
+                    <th title="Opciones disponibles">OPCIONES</th>
                 </tr>
+           </thead> 
+            <tbody id="tbody-productos">
+                    
             </tbody>
             
         </table>

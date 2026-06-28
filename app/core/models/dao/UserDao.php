@@ -17,10 +17,15 @@ final class UserDao extends BaseDao implements InterfaceDao{
     public function load(int $id): array{
         $sql = "SELECT * FROM {$this->table} WHERE id = :id";
 
+        return $this->selectQuery($sql, ['id' => $id]);
+        
+        /*
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['id' => $id]);
+        $stmt->execute([
+            'id' => $id,
+        ]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];*/
     }
     
 
@@ -39,19 +44,17 @@ final class UserDao extends BaseDao implements InterfaceDao{
         $this->validateCorreo($data['id'], $data['correo']);
 
         $sql = "UPDATE {$this->table}
-                SET apellido = :apellido,
-                    nombres = :nombres,
-                    cuenta = :cuenta,
-                    perfil = :perfil,
-                    clave = :clave,
-                    correo = :correo,
-                    estado = :estado,
-                    fechaAlta = :fechaAlta,
-                    resetPass = :resetPass
-                WHERE id = :id";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute($data);
+            SET apellido = :apellido,
+                nombres = :nombres,
+                cuenta = :cuenta,
+                perfil = :perfil,
+                clave = :clave,
+                correo = :correo,
+                estado = :estado,
+                fechaAlta = :fechaAlta,
+                resetPass = :resetPass
+            WHERE id = :id";
+        $this->updateQuery($sql, $data);
     }
 
     public function login(string $cuenta): array{
@@ -98,44 +101,42 @@ final class UserDao extends BaseDao implements InterfaceDao{
         return $this->searchByFilter($filters);
     }
 
-public function enable(UserDto $dto): void{
+    public function enable(UserDto $dto): void{
 
-    $sql = "UPDATE {$this->table}
-            SET estado = 1
-            WHERE id = :id";
+        $sql = "UPDATE {$this->table}
+                SET estado = 1
+                WHERE id = :id";
 
-    $stmt = $this->conn->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
-    $stmt->execute([
-        'id' => $dto->getId()
-    ]);
-}
+        $stmt->execute([
+            'id' => $dto->getId()
+        ]);
+    }
 
   public function disable(UserDto $dto): void{
+        $sql = "UPDATE {$this->table}
+                SET estado = 0
+                WHERE id = :id";
 
-    $sql = "UPDATE {$this->table}
-            SET estado = 0
-            WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
 
-    $stmt = $this->conn->prepare($sql);
-
-    $stmt->execute([
-        'id' => $dto->getId()
-    ]);
-}
+        $stmt->execute([
+            'id' => $dto->getId()
+        ]);
+    }
 
   public function reset(UserDto $dto): void{
+        $sql = "UPDATE {$this->table}
+                SET resetPass = 1
+                WHERE id = :id";
 
-    $sql = "UPDATE {$this->table}
-            SET resetPass = 1
-            WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
 
-    $stmt = $this->conn->prepare($sql);
-
-    $stmt->execute([
-        'id' => $dto->getId()
-    ]);
-}
+        $stmt->execute([
+            'id' => $dto->getId()
+        ]);
+    }
 
 
 

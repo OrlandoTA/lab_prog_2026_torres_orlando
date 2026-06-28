@@ -10,7 +10,7 @@ final class CategoryDto{
     public function __construct(array $data = [])
     {
         $this->setId($data['id'] ?? 0);
-        $this->setNombres($data['nombre'] ?? "");
+        $this->setNombre($data['nombre'] ?? "");
 
     }
 
@@ -35,7 +35,7 @@ final class CategoryDto{
 
 
     public function setNombre(string $nombre): void{
-        $nombresTrimeado = trim($nombre);
+        $nombreTrimeado = trim($nombre);
         $this->nombre = (strlen($nombreTrimeado) > 0 && strlen($nombreTrimeado) <= 100) ? $nombreTrimeado : "";
     }
 

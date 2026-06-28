@@ -11,7 +11,7 @@
                 EXPORTAR
             </button>
              
-            <button  onclick="window.location.href='<?= APP_URL ?>?controller=user&action=create'" class="btn-altas" title="Crear un nuevo usuario">
+            <button   class="btn-altas" title="Crear un nuevo usuario">
                 <ion-icon name="person-add-outline"></ion-icon>
                 AGREGAR USUARIO
             </button>

@@ -1,9 +1,10 @@
 import { userController } from './controller.js';
+import { view } from './view.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-
+    view.init();
     // Cargar usuarios al abrir la página
-    await userController.list();
+    userController.list();
 
     // ==========================
     // BUSCAR
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnBuscar = document.querySelector('.btn-buscar');
     const inputBuscar = document.getElementById('input-buscar');
 
-    btnBuscar?.addEventListener('click', async () => {
+    btnBuscar.addEventListener('click', async () => {
 
         const texto = inputBuscar.value.trim();
 
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Buscar con Enter
-    inputBuscar?.addEventListener('keydown', async (e) => {
+    inputBuscar.addEventListener('keydown', async (e) => {
 
         if (e.key === 'Enter') {
 
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ==========================
     const filtro = document.getElementById('filtro-categoria');
 
-    filtro?.addEventListener('change', async () => {
+    filtro.addEventListener('change', async () => {
 
         const value = filtro.value;
 
@@ -79,4 +80,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ==========================
     userController.exportPDF();
 
-});
+    document.getElementById('tbody-usuarios').onclick = (e) => {
+
+        const boton = e.target.closest('.btn-editar');
+
+        if (!boton) return;
+
+        const id = boton.dataset.id;
+
+        window.location.href =
+            `?controller=user&action=edit&id=${id}`;
+
+    };
+
+    document.querySelector('.btn-altas').addEventListener('click', () => {
+        window.location.href = '?controller=user&action=create';
+    });
+}); 

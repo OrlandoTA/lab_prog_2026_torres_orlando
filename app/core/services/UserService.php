@@ -25,7 +25,7 @@ final class UserService extends BaseService{
 
 
     public function load(UserDto $dto):array{
-        return $this->dao-> load($dto->getId());
+        return $this->dao->load($dto->getId());
     }
 
 

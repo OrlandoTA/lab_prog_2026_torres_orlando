@@ -2,7 +2,10 @@
 
 namespace app\core\controllers;
 
+use app\core\models\dao\CategoryProductDao;
 use app\core\controllers\base\BaseController;
+use app\core\services\CategoryService;
+use app\core\models\dao\CategoryDao;
 use app\core\models\dto\ItemDto;
 use app\core\services\ItemService;
 use app\libs\http\Request;
@@ -37,22 +40,29 @@ class ItemController extends BaseController{
     public function create(Request $request, Response $response){
         array_push($this->modules, "app/js/item/create.js");
         $this->breadcrumb = [
-        [
-            'title' => 'Inicio',
-            'icono' => 'home-outline',
-            'class' => 'firts',
-            'url' => APP_URL . '?controller=home&action=index'
-        ],
-        [
-            'title' => 'Productos',
-             'icono'=> 'basket-outline',
-            'url' => APP_URL . '?controller=item&action=index'
-        ],
-        [
-            'class' => 'last active',
-            'title' => 'Crear producto'
-        ]
-    ];
+            [
+                'title' => 'Inicio',
+                'icono' => 'home-outline',
+                'class' => 'firts',
+                'url' => APP_URL . '?controller=home&action=index'
+            ],
+            [
+                'title' => 'Productos',
+                'icono'=> 'basket-outline',
+                'url' => APP_URL . '?controller=item&action=index'
+            ],
+            [
+                'class' => 'last active',
+                'title' => 'Crear producto'
+            ]
+        ];
+
+        //Se utiliza para mostrar las categorias dinamicamente en la vista
+        $categoryService = new CategoryService();
+        $this->categorias = $categoryService->list([]);
+        
+
+
 
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
@@ -62,6 +72,7 @@ class ItemController extends BaseController{
         $data = $request->getDataFromInput();
         $dto = new ItemDto($data);
         $service = new ItemService();
+
         $service->save($dto);
         $response->setMessage("Se registró el item con éxito.");
         $response->send();
@@ -91,21 +102,36 @@ class ItemController extends BaseController{
 
     public function update(Request $request, Response $response){
         $data = $request->getDataFromInput();
+
         $dto = new ItemDto($data);
         $service = new ItemService();
         $service->update($dto);
-        $response->setMessage('Se actualizo el producto con exito.');
+
         $response->send(); 
+
+    }
+
+    public function load(Request $request, Response $response){
+        $data = $request->getDataFromInput();
+
+        $dto = new ItemDto(['id' => $data['id']]);
+        $service = new ItemService();
+
+        $response->setData($service->load($dto)) ;
+
+        $response->send();
     }
 
     public function delete(Request $request, Response $response){
-        $id = $request->getId();
+        $data = $request->getDataFromInputs();
+
         $dto = new ItemDto([
-            'id' =>$id,
+            'id' =>$data['id'],
         ]);
         $service = new ItemService();
+
         $service->delete($dto);
-        $response->setMessage('Se elimino el producto con exito.');
+
         $response->send();
     }
 

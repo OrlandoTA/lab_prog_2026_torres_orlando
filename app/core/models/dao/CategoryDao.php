@@ -33,7 +33,7 @@ final class CategoryDao extends BaseDao implements InterfaceDao{
 
         $sql = "UPDATE {$this->table}
                 SET
-                    nombres = :nombres,
+                    nombre = :nombre,
                 WHERE id = :id";
 
         $stmt = $this->conn->prepare($sql);
@@ -56,16 +56,6 @@ final class CategoryDao extends BaseDao implements InterfaceDao{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public  function validateCuenta(int $id, string $cuenta): void{
-        $sql = "SELECT id FROM {$this->table} WHERE cuenta = :cuenta && id != :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            'id'     => $id,
-            'cuenta' => $cuenta
-        ]);
-        if($stmt->rowCount() != 0){
-            throw new \Exception("La cuenta {$cuenta} ya esta siendo usada por otro usuario.");
-        }
-    }
+ 
 
 }
