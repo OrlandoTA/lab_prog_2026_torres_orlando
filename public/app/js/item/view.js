@@ -62,7 +62,11 @@ export const view = {
         const items = data[0];
         const form = document.forms['formEditItems'];
         const formFields = form.elements;
+        const set = new Set(items.categorias.map(String));
 
+        for (const option of formFields['categorias'].options) {
+            option.selected = set.has(option.value);
+        }
         formFields['nombre'].value = items.nombre;
         formFields['descripcion'].value = items.descripcion;
         formFields['precio'].value = items.precio;

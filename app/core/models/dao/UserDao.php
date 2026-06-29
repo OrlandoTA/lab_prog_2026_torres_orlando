@@ -168,45 +168,48 @@ final class UserDao extends BaseDao implements InterfaceDao{
         }
     }
 
+    //Metodo para buscar con los filtros 
     private function searchByFilter(array $filters):array{
-
-
        $condiciones= [];
        $parametros = [];
-
-        if(isset($filters['nombres'])){
-            $parametros ['nombres'] = $filters['nombres'];
-            $condiciones[] = "nombres = :nombres";
+        if(!empty($filters['buscar'])){
+            $condiciones[] = "(nombres LIKE :buscar OR cuenta LIKE :buscar OR perfil LIKE :buscar OR correo LIKE :buscar OR apellido LIKE :buscar)";
+            $parametros['buscar'] = "%" . $filters['buscar'] ."%";
         }
 
-        if(isset($filters['apellido'])){
-            $parametros ['apellido'] = $filters['apellido'];
-            $condiciones[] = "apellido = :apellido";
-        }
+        $sql = "SELECT * FROM {$this->table}";
 
-        if(isset($filters['perfil'])){
-            $parametros ['perfil'] = $filters['perfil'];
-            $condiciones[] = "perfil = :perfil";
+        if(!empty($condiciones)){
+            $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
+        if(!empty($filters['ordenar'])){
+            switch($filters['ordenar']){
+                case 'tipo-Administrador':
+                $sql .= " WHERE perfil = 'Administrador'";
+                break;
 
-        //Si los filtros estan vacios se envia toda la informacion de todos los productos
-        if(empty($condiciones)){
-            $sql = "SELECT * FROM {$this->table}";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $resultado;
-           
-        } else{
-            $where = implode(" AND ", $condiciones);
-             $sql = "SELECT * 
-                    FROM {$this->table} 
-                    WHERE $where ";
-            $stmt = $this->conn->prepare($sql);
-            $stmt ->execute($parametros);
-            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $resultado;
+                case 'tipo-operador':
+                    $sql .= " WHERE perfil = 'Operador'";
+                break;
+
+                case 'nombre-ascendente':
+                    $sql .= " ORDER BY nombres ASC";
+                break;
+
+                case 'nombre-descendente':
+                    $sql .= " ORDER BY nombres DESC";
+                break;
+
+                default:
+                break;
+            }
         }
-        return $resultado;
+        
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($parametros);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 }

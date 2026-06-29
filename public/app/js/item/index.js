@@ -4,6 +4,7 @@ import { view } from './view.js';
 
 document.addEventListener('DOMContentLoaded', () => {
      view.init();
+
     // Cargar usuarios al abrir la página
     itemController.list();
 
@@ -14,16 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputBuscar = document.getElementById('input-buscar');
 
     btnBuscar.addEventListener('click', async () => {
-        const texto = inputBuscar.value.trim();
-
         await itemController.list({
-            nombres: texto
+            buscar: inputBuscar.value.trim(),
         });
 
     });
 
     // Buscar con Enter
-    inputBuscar.addEventListener('keydown', async (e) => {
+   /* inputBuscar.addEventListener('keydown', async (e) => {
 
         if (e.key === 'Enter') {
 
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
 
-    });
+    });*/
 
     // ==========================
     // FILTROS
@@ -46,33 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filtro.addEventListener('change', async () => {
 
-        const value = filtro.value;
-
-        switch (value) {
-
-            case 'tipo-operador':
-
-                await itemController.list({
-                    perfil: 'Operador'
-                });
-
-                break;
-
-            case 'tipo-Administrador':
-
-                await itemController.list({
-                    perfil: 'Administrador'
-                });
-
-                break;
-
-            default:
-
-                await itemController.list();
-
-                break;
-        }
-
+        await itemController.list({
+            ordenar: filtro.value,
+            buscar: inputBuscar.value.trim(),
+        });
+       
     });
 
     // ==========================

@@ -27,7 +27,7 @@ export const itemService = {
        return result;
     },
 
-    save: item => {
+    save:  item => {
         fetch('item/save', {
             method: "POST",
             headers: {

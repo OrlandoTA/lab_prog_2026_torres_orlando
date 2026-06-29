@@ -9,7 +9,7 @@
     
 
     <meta name=“keywords” content=“ink, paper, libro” />
-   <link rel="stylesheet" href="../../../../public/app/css/authentication.css" type="text/css">
+   <link rel="stylesheet" href="../public/app/css/authentication.css" type="text/css">
 
     <title>Inicio de sesión</title>
 </head>

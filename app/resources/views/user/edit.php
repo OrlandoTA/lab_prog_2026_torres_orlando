@@ -49,7 +49,7 @@
         </div>
 
         <div class="campo-botones">
-            <button  type="button" class="btn-volver" title="Volver al listado de usuarios">
+            <button  type="button" class="btn-volver" id="btnVolver" title="Volver al listado de usuarios">
             <ion-icon name="arrow-back-circle-outline"></ion-icon>    
                 Volver
             </button>

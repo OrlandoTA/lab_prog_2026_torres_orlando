@@ -1,7 +1,7 @@
 <nav aria-label="Breadcrumb" class="breadcrumb">
        <ol>
 
-        <?php foreach($this->breadcrumb as $item): ?>
+        <?php foreach($this->breadcrumb ?? [] as $item): ?>
 
             <li class="<?= $item['class'] ?? '' ?>">
 

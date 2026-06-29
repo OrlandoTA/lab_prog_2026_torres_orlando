@@ -21,9 +21,8 @@
     <div class="contenedor-botones-filtros">
 
 
-        <select id="filtro-categoria" valeu="Filtrar por...">
+        <select id="filtro-categoria">
             <option value="">Filtrar por...</option>
-            <option value="categoria"> Categoria</option>
             <option value="menor-precio">Menor Precio</option>
             <option value="mayor-precio">Mayor Precio</option>
             <option value="nombre-descendente">Descendente(nombre)</option>
@@ -31,14 +30,11 @@
         </select>
 
         <div class="contenedor-buscador">
-            <input type="text" id="input-buscar" placeholder="Buscar productos..."
-                title="Ingresar texto para buscar usuarios">
-            <button type="button" title="buscar" class="btn-buscar"><ion-icon
-                    name="search-outline"></ion-icon></button>
-
+            <input type="text" id="input-buscar" placeholder="Buscar productos..." value="" title="Ingresar texto para buscar un producto">
+            <button type="button" title="buscar" class="btn-buscar">
+                <ion-icon name="search-outline"></ion-icon>
+            </button>
         </div>
-
-
     </div>
 
     <div class="contenedor-tabla">

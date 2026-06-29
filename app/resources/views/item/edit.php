@@ -33,7 +33,7 @@
     <div class="campo">
         <label title="Seleccione una o más categorías">Categoria<span class="obligatorio">*</span></label>
         <div class="grupo-checkbox">
-            <select name="categorias[]" id="categorias-select" multiple size="5" >
+            <select name="categorias" id="categorias-select" multiple size="5" disabled >
                 <?php foreach ($this->categorias as $categoria): ?>
                     <option value="<?= $categoria['id'] ?>">
                         <?= $categoria['nombre'] ?>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="campo-botones">
-        <button  type="button"  onclick="window.location.href='index.php'" class="btn-volver" title="Volver al listado de usuarios">
+        <button  type="button" id="btnVolver" class="btn-volver" title="Volver al listado de usuarios">
             <ion-icon name="arrow-back-circle-outline"></ion-icon>
             Volver
         </button>
@@ -62,10 +62,6 @@
             Eliminar
         </button>
     </div>
-
-    <p id="mensaje-exitoso" class="oculto" title="Mensaje de confirmación">
-        El producto fue editado con éxito
-    </p>
 
     <button type="button" id="btn-exportar" title="Exportar a PDF">Generar PDF</button>
 

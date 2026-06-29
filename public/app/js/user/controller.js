@@ -25,7 +25,7 @@ export const userController = {
 
     save: async function () {
         let data = Object.fromEntries(new FormData(form));
-        data.estado = document.getElementById('estado-cuenta').checked ? 1 : 0;
+       
         await userService.save(data);
     },
 
@@ -44,8 +44,7 @@ export const userController = {
 
     },
 
-    list: async () => {
-        let filters = {};
+    list: async (filters = {}) => {
         let users = await userService.list(filters);
         view.listUsers(users);
 

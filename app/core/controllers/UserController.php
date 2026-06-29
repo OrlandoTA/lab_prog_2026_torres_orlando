@@ -72,7 +72,7 @@ class UserController extends BaseController{
         $dto = new UserDto($data);
         $service = new UserService();
         $service->save($dto);
-        $response->setMessage("Se registró el usuario con éxito.");
+
         $response->send();
     }
 

@@ -26,6 +26,9 @@ export const itemController = {
 
     save: async function () {
         let data = Object.fromEntries(new FormData(form));
+        data.categorias = [...document.getElementById('categorias-select').selectedOptions]
+        .map(opcion => opcion.value);
+
 
         await itemService.save(data);
     },
@@ -33,6 +36,8 @@ export const itemController = {
     update: async function () {
 
         let data = Object.fromEntries(new FormData(form));
+        data.categorias = [...document.getElementById('categorias-select').selectedOptions]
+        .map(opcion => opcion.value);
         data.id = currentItemId;
 
         await itemService.update(data);
@@ -45,8 +50,7 @@ export const itemController = {
 
     },
 
-    list: async ()=> {
-        let filters = {};
+    list: async (filters = {})=> {
         let items = await itemService.list(filters);
         view.listItems(items);
 

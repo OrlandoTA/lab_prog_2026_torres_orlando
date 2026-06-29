@@ -70,11 +70,11 @@ class ItemController extends BaseController{
 
     public function save(Request $request, Response $response){
         $data = $request->getDataFromInput();
+ 
         $dto = new ItemDto($data);
         $service = new ItemService();
-
         $service->save($dto);
-        $response->setMessage("Se registró el item con éxito.");
+
         $response->send();
     }
 
@@ -96,6 +96,10 @@ class ItemController extends BaseController{
                 'title' => 'Editar producto'
             ]
         ];
+
+        $categoryService = new CategoryService();
+        $this->categorias = $categoryService->list([]);
+        
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -123,7 +127,7 @@ class ItemController extends BaseController{
     }
 
     public function delete(Request $request, Response $response){
-        $data = $request->getDataFromInputs();
+        $data = $request->getDataFromInput();
 
         $dto = new ItemDto([
             'id' =>$data['id'],

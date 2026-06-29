@@ -5,15 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     itemController.resetForm();
 
     itemController.enableForm(true);
+    const btnCrear = document.getElementById('btn-guardarCambios')
 
-    document.getElementById('btn-guardarCambios').onclick = (e)=>{
-        itemController.save();
+    btnCrear.addEventListener('click', async (e) =>{
+         
         //Evita que se envie instantaneamente
             e.preventDefault();
 
+            try {
+            await itemController.save();
+            } catch (error) {
+                console.error(error);
+            }
+          
+
             //Mensaje de exito
             Swal.fire({
-                title: "Usuario creado",
+                title: "Producto creado",
                 text: "You clicked the button!",
                 icon: "success"
             });
@@ -21,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 form.submit();
             }, 2000);
-    }
+    })
 
     const selectCategorias = document.getElementById('categorias-select');
     if (selectCategorias) {

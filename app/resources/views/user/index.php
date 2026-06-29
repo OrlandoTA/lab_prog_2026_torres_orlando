@@ -31,8 +31,10 @@
                 </select>
 
                 <div class="contenedor-buscador">
-                    <input type="text" id="input-buscar" placeholder="Buscar usuarios..." title="Ingresar texto para buscar usuarios">    
-                    <button type="button" title="buscar" class="btn-buscar" ><ion-icon name="search-outline"></ion-icon></button> 
+                    <input type="text" id="input-buscar" placeholder="Buscar usuarios..." value = "" title="Ingresar texto para buscar usuarios">    
+                    <button type="button" title="buscar" class="btn-buscar" >
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button> 
 
                 </div>
                 

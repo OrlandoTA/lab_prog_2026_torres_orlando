@@ -1,3 +1,4 @@
+
 import { userController } from './controller.js';
 import { view } from './view.js';
 
@@ -13,66 +14,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     const inputBuscar = document.getElementById('input-buscar');
 
     btnBuscar.addEventListener('click', async () => {
-
-        const texto = inputBuscar.value.trim();
-
         await userController.list({
-            nombres: texto
+            buscar: inputBuscar.value.trim(),
         });
 
     });
 
-    // Buscar con Enter
-    inputBuscar.addEventListener('keydown', async (e) => {
 
-        if (e.key === 'Enter') {
 
-            e.preventDefault();
-
-            const texto = inputBuscar.value.trim();
-
-            await userController.list({
-                nombres: texto
-            });
-
-        }
-
-    });
-
-    // ==========================
+       // ==========================
     // FILTROS
     // ==========================
     const filtro = document.getElementById('filtro-categoria');
 
     filtro.addEventListener('change', async () => {
 
-        const value = filtro.value;
-
-        switch (value) {
-
-            case 'tipo-operador':
-
-                await userController.list({
-                    perfil: 'Operador'
-                });
-
-                break;
-
-            case 'tipo-Administrador':
-
-                await userController.list({
-                    perfil: 'Administrador'
-                });
-
-                break;
-
-            default:
-
-                await userController.list();
-
-                break;
-        }
-
+        await userController.list({
+            ordenar: filtro.value,
+            buscar: inputBuscar.value.trim(),
+        });
+       
     });
 
     // ==========================

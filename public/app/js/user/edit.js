@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardar = document.getElementById('btn-guardarCambios');
     const btnCancelar = document.getElementById('btn-cancelar');
     const btnEliminar = document.getElementById('btn-eliminar');
-   
+    const btnVolver = document.getElementById('btnVolver');
+
+    if(btnVolver){
+        btnVolver.addEventListener('click', ()=>{
+            window.location.href = '?controller=item&action=index';
+        })
+    }
 
     if(btnEditar){
         btnEditar.addEventListener('click', () =>{

@@ -31,7 +31,7 @@ public function login(Request $request, Response $response){
 
 public function logout(Request $request, Response $response){
     $service = new AuthenticationService();
-    $serive->logout();
+    $service->logout();
     require_once(APP_FILE_LOGIN);
 }
 }

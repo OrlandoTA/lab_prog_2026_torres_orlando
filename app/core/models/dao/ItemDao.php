@@ -42,10 +42,17 @@ final class ItemDao extends BaseDao implements InterfaceDao{
   
     public function delete(int $id): void{
 
-        $sql = "DELETE FROM {$this->table} WHERE id = $id";
+        $sql = "DELETE FROM {$this->table} WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['id' => $id]);
 
+    }
+
+    public function searchId(string $codigo):array{
+        $sql = "SELECT id FROM {$this->table} WHERE codigo =:codigo";
+        $result = $this->selectQuery($sql, ['codigo' => $codigo]);
+
+        return $result;
     }
 
     public function list(array $filters): array{
@@ -66,44 +73,46 @@ final class ItemDao extends BaseDao implements InterfaceDao{
 
     //Metodo para buscar con los filtros 
     private function searchByFilter(array $filters):array{
-
-
        $condiciones= [];
        $parametros = [];
-
-        if(isset($filters['nombre'])){
-            $parametros ['nombre'] = $filters['nombre'];
-            $condiciones[] = "nombre = :nombre";
+        if(!empty($filters['buscar'])){
+            $condiciones[] = "(nombre LIKE :buscar OR descripcion LIKE :buscar OR codigo LIKE :buscar)";
+            $parametros['buscar'] = "%" . $filters['buscar'] ."%";
         }
 
-        if(isset($filters['precio'])){
-            $parametros ['precio'] = $filters['precio'];
-            $condiciones[] = "precio = :precio";
-        }
+        $sql = "SELECT * FROM {$this->table}";
 
-        if(isset($filters['stock'])){
-            $parametros ['stock'] = $filters['stock'];
-            $condiciones[] = "stock = :stock";
+        if(!empty($condiciones)){
+            $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
+        if(!empty($filters['ordenar'])){
+            switch($filters['ordenar']){
+                case 'menor-precio':
+                $sql .= " ORDER BY precio ASC";
+                break;
 
-        //Si los filtros estan vacios se envia toda la informacion de todos los productos
-        if(empty($condiciones)){
-            $sql = "SELECT * FROM productos";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute();
-            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $resultado;
-           
-        } else{
-            $where = implode (" AND ", $condiciones);
-             $sql = "SELECT * 
-                    FROM {$this->table} 
-                    WHERE $where ";
-            $stmt = $this->conn->prepare($sql);
-            $stmt ->execute($parametros);
-            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $resultado;
+                case 'mayor-precio':
+                    $sql .= " ORDER BY precio DESC";
+                    break;
+
+                case 'nombre-ascendente':
+                    $sql .= " ORDER BY nombre ASC";
+                    break;
+
+                case 'nombre-descendente':
+                    $sql .= " ORDER BY nombre DESC";
+                    break;
+
+                default:
+                    break;
+            }
         }
+        
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($parametros);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

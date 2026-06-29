@@ -13,7 +13,7 @@
         </div>
 
         <div class="campo mitad">
-            <label for="codigo" title="Ingrese el código del producto">Código<span class="obligatorio">*</span></label>
+            <label for="codigo" title="Ingrese el código del producto">ISBN<span class="obligatorio">*</span></label>
             <input name="codigo" type="text" id="codigo" required minlength="2" maxlength="20" pattern="[A-Za-z0-9]+"
             title="Escriba el código del producto (solo letras y números, sin espacios)">
         </div>
@@ -27,9 +27,9 @@
     </div>
 
     <div class="campo">
-        <label title="Seleccione una o más categorías">Categoria <span class="obligatorio">*</span></label>
+        <label title="Seleccione una o más categorías">Categorias<span class="obligatorio">*</span></label>
         <div class="grupo-checkbox">
-            <select name="categorias[]" id="categorias-select" multiple size="5" >
+            <select name="categorias" id="categorias-select" multiple size="5" >
                 <?php foreach ($this->categorias as $categoria): ?>
                     <option value="<?= $categoria['id'] ?>">
                         <?= $categoria['nombre'] ?>
@@ -62,9 +62,5 @@
         </button>
 
     </div>
-
-    <p id="mensaje-exitoso" class="oculto" title="Mensaje de confirmación">
-        El producto fue registrado con exito
-    </p>
 
 </form>

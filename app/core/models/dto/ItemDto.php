@@ -69,7 +69,7 @@ final class ItemDto{
     }
 
     public function setCategorias(array $categorias):void{
-        $this->categorias = $categorias;
+        $this->categorias = is_array($categorias) ? $categorias : [$categorias];
     }
     public function setNombre(string $nombre): void{
         $nombreTrimeado = trim($nombre);

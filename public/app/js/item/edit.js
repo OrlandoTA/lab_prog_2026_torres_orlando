@@ -9,13 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnGuardar = document.getElementById('btn-guardarCambios');
     const btnCancelar = document.getElementById('btn-cancelar');
     const btnEliminar = document.getElementById('btn-eliminar');
-   
+    const btnVolver = document.getElementById('btnVolver');
+
+    if(btnVolver){
+        btnVolver.addEventListener('click', ()=>{
+            window.location.href = '?controller=item&action=index';
+        })
+    }
+
+
 
     if(btnEditar){
         btnEditar.addEventListener('click', () =>{
             itemController.enableForm(true);
         });
     }
+    
+    const selectCategorias = document.getElementById('categorias-select');
+    if (selectCategorias) {
+        selectCategorias.addEventListener('mousedown', function(e) {
+            var option = e.target;
+            if (option.tagName === 'OPTION') {
+                e.preventDefault();
+                // Invertimos la selección de forma manual
+                option.selected = !option.selected;
+            }
+        });
+
+    } 
+
 
     // Obtener id desde la URL
     const params = new URLSearchParams(window.location.search);
@@ -48,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: "Cambios guardados",
                 text: "Producto actualizado correctamente",
                 icon: "success",
-                timer: 2000,
+                timer: 20000,
                 showConfirmButton: false
             });
         } catch (error) {
