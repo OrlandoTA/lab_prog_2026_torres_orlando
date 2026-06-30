@@ -1,19 +1,19 @@
 
         <div class="titulo-modulo">
             <div class="nombre-pagina">            
-                <ion-icon name="wallet-outline" title = "Ventas"></ion-icon>
-                <h1 title="Listado de ventas registradas">Gestión de Ventas</h1>
+                <ion-icon name="people-outline" title="Clientes"></ion-icon>
+                <h1 title="Listado de clientes registrados">Gestión de Clientes</h1>
             </div>
 
 
-            <button type="button" class="btn-exportar"  title="Exportar datos de venta">
+            <button type="button" class="btn-exportar"  title="Exportar datos de clientes">
                 <ion-icon name="download-outline"></ion-icon>
                 EXPORTAR
             </button>
              
-            <button   class="btn-altas" title="Crear una nueva venta">
-                <ion-icon name="add-outline"></ion-icon>
-                AGREGAR VENTA
+            <button   class="btn-altas" title="Crear un nuevo cliente">
+                <ion-icon name="person-add-outline"></ion-icon>
+                AGREGAR CLIENTE
             </button>
 
         </div>
@@ -24,14 +24,14 @@
   
                 <select  id="filtro-categoria">
                     <option value="">Filtrar por...</option>
-                    <option value="tipo-operador"> Operador</option>
-                    <option value="tipo-Administrador">Administrador</option>
+                    <option value="tipo-empresa"> Empresa</option>
+                    <option value="tipo-particular">Particular</option>
                     <option value="nombre-descendente">Descendente(nombre)</option>
                     <option value="nombre-ascendente">Ascendente(nombre)</option>
                 </select>
 
                 <div class="contenedor-buscador">
-                    <input type="text" id="input-buscar" placeholder="Buscar venta..." value = "" title="Ingresar texto para buscar usuarios">    
+                    <input type="text" id="input-buscar" placeholder="Buscar cliente..." value = "" title="Ingresar texto para buscar usuarios">    
                     <button type="button" title="buscar" class="btn-buscar" >
                         <ion-icon name="search-outline"></ion-icon>
                     </button> 
@@ -41,18 +41,20 @@
             </div>
 
             <div class="contenedor-tabla">
-                <table id="tabla-ventas" class="tabla" title="Tabla de ventas registrados">
+                <table id="tabla-clientes" class="tabla" title="Tabla de clientes registrados">
 
                     <thead>
                         <tr>
-                            <th>NRO DE VENTA</th>
-                            <th>FECHA</th>
                             <th>CLIENTE</th>
-                            <th>FORMA DE PAGO</th>
+                            <th>CUIT</th>
+                            <th>TIPO</th>
+                            <th>CORREO</th>
+                            <th>TELEFONO</th>
+                            <th>DOMICILIO</th>
                             <th>OPCIONES</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody-ventas">
+                    <tbody id="tbody-clientes">
 
                     </tbody>
                 </table>

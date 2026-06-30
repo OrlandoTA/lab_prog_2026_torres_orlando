@@ -17,24 +17,8 @@ const campos = document.querySelectorAll("input, select, .btn-guardar, .descripc
 const btnCancelar = document.getElementById("btn-cancelar");
 const btnEliminar = document.getElementById("btn-eliminar");
 const btnEliminarProducto = document.getElementById("btn-eliminarProducto");
-
-
 const contenedorBotones = document.getElementById('contenedor-botones');
 const contenedorToast = document.getElementById('contenedor-toast');
-
-/* Modo oscuro
-modoOscuro.addEventListener("click", () => { 
-    let body = document.body;
-    body.classList.toggle("dark-mode");
-    circulo.classList.toggle("prendido");
-});
-*/
-
-
-
-
-
-
 
 
 /* Submenu */
@@ -46,15 +30,6 @@ miCuenta.addEventListener("click", (e) => {
 
 
 
-/* Accion para habilitar los inputs y select 
-if (btnEditar) {
-    btnEditar.addEventListener("click", () => {
-        campos.forEach(campo => {
-            campo.disabled = false;
-        });
-    });
-}
-*/
 
 
 

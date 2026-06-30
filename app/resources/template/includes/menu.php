@@ -34,6 +34,12 @@
                         <span title="Usuarios">Usuarios</span>
                     </a>
                 </li>
+                <li>
+                    <a href="<?= APP_URL ?>?controller=customer&action=index" title="Administrar clientes">
+                        <ion-icon name="people-outline" title="Clientes"></ion-icon>
+                        <span title="Clientes">Clientes</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="" title="Notificaciones">

@@ -14,6 +14,8 @@ class HomeController extends BaseController{
     }
 
     public function index(Request $request, Response $response){
+        $this->setScripts(['app/js/home/index.js']);
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }

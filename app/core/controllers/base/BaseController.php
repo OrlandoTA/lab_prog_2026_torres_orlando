@@ -29,4 +29,8 @@ class BaseController{
         $this->breadCrumb = $breadCrumb;
     }
 
+    protected function setScripts(array $scripts):void{
+        $this->scripts = $scripts;
+    }
+
 }
