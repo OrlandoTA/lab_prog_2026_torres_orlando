@@ -16,6 +16,7 @@ class SaleController extends BaseController{
     }
 
     public function index(Request $request, Response $response){
+         
         array_push($this->modules, "app/js/sale/index.js");
          $this->breadcrumb = [
             [
@@ -32,12 +33,13 @@ class SaleController extends BaseController{
             ],
            
         ];
-
+    $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
     
     public function create(Request $request, Response $response){
+        
         array_push($this->modules, "app/js/sale/create.js");
 
          $this->breadcrumb = [
@@ -57,6 +59,7 @@ class SaleController extends BaseController{
             'title' => 'Agregar Venta'
         ]
     ];
+     $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -99,7 +102,8 @@ class SaleController extends BaseController{
             ]
         ];
 
-
+        $this->requireProfile(['Administrador']);
+        
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }

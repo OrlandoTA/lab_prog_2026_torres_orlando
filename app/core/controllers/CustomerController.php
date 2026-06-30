@@ -16,6 +16,7 @@ class CustomerController extends BaseController{
     }
 
     public function index(Request $request, Response $response){
+
         array_push($this->modules, "app/js/customer/index.js");
          $this->breadcrumb = [
             [
@@ -33,11 +34,15 @@ class CustomerController extends BaseController{
            
         ];
 
+        $this->requireProfile(['Administrador', 'Operador']);
+
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
     
     public function create(Request $request, Response $response){
+
         array_push($this->modules, "app/js/customer/create.js");
 
          $this->breadcrumb = [
@@ -57,6 +62,8 @@ class CustomerController extends BaseController{
             'title' => 'Agregar cliente'
         ]
     ];
+ $this->requireProfile(['Administrador', 'Operador']);
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -84,6 +91,7 @@ class CustomerController extends BaseController{
 
 
     public function edit(Request $request, Response $response){
+
         array_push($this->modules, "app/js/customer/edit.js");
         $this->breadcrumb = [
             [
@@ -98,7 +106,7 @@ class CustomerController extends BaseController{
                 'title' => 'Editar cliente'
             ]
         ];
-
+$this->requireProfile(['Administrador', 'Operador']);
 
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
@@ -131,7 +139,6 @@ class CustomerController extends BaseController{
         $response->setData($result);
         $response->send();
     }
-    
 
 
 }

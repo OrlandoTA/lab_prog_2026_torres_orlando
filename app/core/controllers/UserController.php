@@ -15,8 +15,45 @@ class UserController extends BaseController{
         parent::__construct();
     }
 
+    public function profileLoad(Request $request, Response $response)
+    {
+        
+        $dto = new UserDto([
+            'id' => $_SESSION['usuarioId']
+        ]);
+
+        $service = new UserService();
+
+        $response->setData($service->load($dto));
+        $response->send();
+    }
+
+
+
+    public function profile(Request $request, Response $response){
+         array_push($this->modules, "app/js/user/profile.js");
+          
+             $this->breadcrumb =  [
+            [
+                'title' => 'Inicio',
+                'icono' => 'home-outline',
+                'class' => 'firts',
+                'url' => APP_URL . '?controller=home&action=index',
+            ],
+            [
+                'class' => 'last active',
+                'title' => 'Perfil',
+            ] 
+        ];
+        $this->requireProfile(['Administrador']);
+        $this->setCurrentView($request);
+        require_once(APP_FILE_TEMPLATE);
+    }
+    
+
     public function index(Request $request, Response $response){
         array_push($this->modules, "app/js/user/index.js");
+         
         
         $this->breadcrumb = [
             [
@@ -37,13 +74,14 @@ class UserController extends BaseController{
         $service = new UserService();
         
 
-
+        $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
 
     public function create(Request $request, Response $response){
         array_push($this->modules, "app/js/user/create.js");
+         
 
          $this->breadcrumb = [
         [
@@ -62,6 +100,7 @@ class UserController extends BaseController{
             'title' => 'Alta de usuario'
         ]
     ];
+    $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -89,6 +128,7 @@ class UserController extends BaseController{
 
 
     public function edit(Request $request, Response $response){
+        
         array_push($this->modules, "app/js/user/edit.js");
         $this->breadcrumb = [
             [
@@ -104,7 +144,7 @@ class UserController extends BaseController{
             ]
         ];
 
-
+ $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }

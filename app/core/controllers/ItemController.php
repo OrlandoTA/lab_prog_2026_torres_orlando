@@ -20,6 +20,7 @@ class ItemController extends BaseController{
 
     public function index(Request $request, Response $response){
         array_push($this->modules, "app/js/item/index.js");
+        
         $this->breadcrumb =  [
             [
                 'title' => 'Inicio',
@@ -32,12 +33,13 @@ class ItemController extends BaseController{
                 'title' => 'Gestión de productos',
             ] 
         ];
-
+     $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
 
     public function create(Request $request, Response $response){
+        
         array_push($this->modules, "app/js/item/create.js");
         $this->breadcrumb = [
             [
@@ -61,7 +63,7 @@ class ItemController extends BaseController{
         $categoryService = new CategoryService();
         $this->categorias = $categoryService->list([]);
         
-
+        $this->requireProfile(['Administrador']);
 
 
         $this->setCurrentView($request);
@@ -79,6 +81,7 @@ class ItemController extends BaseController{
     }
 
     public function edit(Request $request, Response $response){
+         
          array_push($this->modules, "app/js/item/edit.js");
         $this->breadcrumb = [
             [
@@ -100,6 +103,8 @@ class ItemController extends BaseController{
         $categoryService = new CategoryService();
         $this->categorias = $categoryService->list([]);
         
+        $this->requireProfile(['Administrador']);
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }

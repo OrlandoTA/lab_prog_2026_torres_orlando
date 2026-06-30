@@ -33,4 +33,16 @@ class BaseController{
         $this->scripts = $scripts;
     }
 
+    protected function requireProfile(array $profile):void{
+        if(!isset($_SESSION['perfil'])){
+            header("Location: " .APP_URL . "?controller=authentication&action=index");
+            exit;
+        }
+
+        if(!in_array($_SESSION['perfil'], $profile)){
+            header("Location: " .APP_URL . "?controller=home&action=index");
+            exit;
+        }
+    }
+
 }

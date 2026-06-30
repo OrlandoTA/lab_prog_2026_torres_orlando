@@ -335,25 +335,30 @@ HOME/INICIO
 ========================= */
 .campos{
     display: flex;
+    flex-wrap: wrap;
     padding: 10px;
     margin-top: 40px;
 }
 
-.campoUsuario, .campoProducto{
-    margin: 10px;
+.campoUsuario, .campoProducto, .campoVenta, .campoCliente{
+    flex: 0 0 calc(50% - 10px);
+    box-sizing: border-box;
+
     display: flex;
-    flex-wrap: wrap;
+
+    flex-direction: column;
     align-content: center;
     justify-content: center;
+    padding: 20px;
     color: var(--color-texto);
     text-align: center;
 }
 
-.campoUsuario p, .campoProducto p{
+.campoUsuario p, .campoProducto p, .campoVenta p, .campoCliente p{
     color: #1a2b3c7c;
 } 
 
-#irUsuarios, #irProductos{
+.irVistas{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -375,10 +380,21 @@ HOME/INICIO
     background-color: var(--color-boton-verde);
 }
 
-#irUsuarios ion-icon, #irProductos ion-icon{
+#irVenta{
+    background-color: var(--color-texto);
+}
+
+#irClientes{
+    background-color: var(--color-boton-verde);
+}
+
+#irUsuarios ion-icon, #irProductos ion-icon, #irVenta ion-icon{
     margin-left: 15px;
     
 }
+
+
+
 h2{
     margin: 5px;
 }
@@ -410,6 +426,40 @@ CONTENEDOR PARA FECHA
 }
 
 
+
+/* =========================
+PROFILE/PERFIL DE USUARIO
+========================= */
+.card-user {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px var(--color-btn-grisClaro-hover);
+}
+
+.card-user__titulo {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.card-user__dato {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-user__label {
+    font-weight: bold;
+    color: var(--color-texto-hover);
+}
+
+.card-user__valor {
+    color: var(--color-texto);
+}
 
 
 

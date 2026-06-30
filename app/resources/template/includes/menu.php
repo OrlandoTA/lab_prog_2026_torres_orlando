@@ -53,7 +53,7 @@
                     </a>
                     <ul class="menu-desplegable activo">
                         <li>
-                            <a href="javascript:void(0)" title="Ver o editar datos personales">
+                            <a href="<?= APP_URL ?>?controller=user&action=profile" title="Ver o editar datos personales">
                                 <ion-icon name="save-outline" title="Mis datos"></ion-icon>
                                 <span title="Mis datos">Mis datos</span>
                             </a>

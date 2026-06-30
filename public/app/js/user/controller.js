@@ -50,15 +50,11 @@ export const userController = {
 
     },
 
+    profile: async function() {
 
-    search: async function (text) {
+        const user = await userService.profile();
 
-        const users = await userService.list({
-            search: text
-        });
-
-        this.renderTable(users);
-
+        view.showUser(user);
     },
 
     exportPDF: function () {

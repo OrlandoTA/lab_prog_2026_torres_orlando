@@ -1,4 +1,4 @@
-export const userService = {
+export const profileService = {
     load: async id => {
         let result = [];
         await fetch('user/load', {
@@ -129,22 +129,5 @@ export const userService = {
         .catch(error => { console.error("Ha ocurrido un error", error); });
         
        return result;
-    },
-    
-    profile: async () => {
-
-        let result = [];
-
-        await fetch('user/profileLoad')
-            .then(response => response.json())
-            .then(data => {
-
-                if(data.success){
-                    result = data.data;
-                }
-
-            });
-        return result;
     }
-    
 };
