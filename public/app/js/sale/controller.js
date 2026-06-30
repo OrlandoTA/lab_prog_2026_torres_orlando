@@ -6,7 +6,7 @@ var currentSaleId = null;
 
 const form = document.querySelector("form");
 
-const campos = document.querySelectorAll('input, .btn-guardar, .btn-cancelar')
+const campos = document.querySelectorAll('input, select, .btn-guardar, .btn-cancelar')
 
 const btnExportar = document.getElementById('btn-exportar');
 
@@ -37,6 +37,7 @@ export const saleController = {
     update: async function () {
 
         let data = Object.fromEntries(new FormData(form));
+
         /*
         data.categorias = [...document.getElementById('categorias-select').selectedOptions]
         .map(opcion => opcion.value);*/

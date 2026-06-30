@@ -23,27 +23,27 @@ final class SaleDao extends BaseDao implements InterfaceDao{
     }
     
 
-public function save(array $data): void {
+    public function save(array $data): void {
 
-    $sql = "INSERT INTO {$this->table}
-            (numeroVenta, fecha, clienteId, formaPago)
-            VALUES (:numeroVenta, NOW(), :clienteId, :formaPago)";
+        $sql = "INSERT INTO {$this->table}
+                (numeroVenta, fecha, clienteId, formaPago)
+                VALUES (:numeroVenta, :fecha, :clienteId, :formaPago)";
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute($data);
-}
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($data);
+    }
 
-public function update(array $data): void {
+    public function update(array $data): void {
 
-    $sql = "UPDATE {$this->table}
-            SET numeroVenta = :numeroVenta,
-                clienteId = :clienteId,
-                formaPago = :formaPago,
-                fecha = NOW()
-            WHERE id = :id";
+        $sql = "UPDATE {$this->table}
+                SET numeroVenta = :numeroVenta,
+                    clienteId = :clienteId,
+                    formaPago = :formaPago,
+                    fecha = :fecha
+                WHERE id = :id";
 
-    $this->updateQuery($sql, $data);
-}
+        $this->updateQuery($sql, $data);
+    }
 
 
 
@@ -67,37 +67,53 @@ public function update(array $data): void {
        $condiciones= [];
        $parametros = [];
         if(!empty($filters['buscar'])){
-            $condiciones[] = "(numeroVenta LIKE :buscar OR formaPago LIKE :buscar)";
+            $condiciones[] = "(numeroVenta LIKE :buscar OR formaPago LIKE :buscar OR clienteId LIKE :buscar)";
             $parametros['buscar'] = "%" . $filters['buscar'] ."%";
         }
+    
+    if (!empty($filters['fecha_inicio']) && empty($filters['fecha_fin'])) {
+        $condiciones[] = "fecha >= :fecha_inicio";
+        $parametros['fecha_inicio'] = $filters['fecha_inicio'];
+    }
+
+    
+    if (!empty($filters['fecha_fin']) && empty($filters['fecha_inicio'])) {
+        $condiciones[] = "fecha <= :fecha_fin";
+        $parametros['fecha_fin'] = $filters['fecha_fin'];
+    }
+
+    
+    if (!empty($filters['fecha_inicio']) && !empty($filters['fecha_fin'])) {
+        $condiciones[] = "fecha BETWEEN :fecha_inicio AND :fecha_fin";
+        $parametros['fecha_inicio'] = $filters['fecha_inicio'];
+        $parametros['fecha_fin'] = $filters['fecha_fin'];
+    }
 
         $sql = "SELECT * FROM {$this->table}";
 
         if(!empty($condiciones)){
             $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
-        /*if(!empty($filters['ordenar'])){
+        if(!empty($filters['ordenar'])){
             switch($filters['ordenar']){
-                case 'tipo-Administrador':
-                $sql .= " WHERE perfil = 'Administrador'";
+                case 'tipo-transferencia':
+                $sql .= " WHERE formaPago = 'Transferencia'";
                 break;
 
-                case 'tipo-operador':
-                    $sql .= " WHERE perfil = 'Operador'";
+                case 'tipo-debito':
+                    $sql .= " WHERE formaPago = 'Debito'";
                 break;
-
-                case 'nombre-ascendente':
-                    $sql .= " ORDER BY nombres ASC";
+                case 'tipo-credito':
+                    $sql .= " WHERE formaPago = 'Credito'";
                 break;
-
-                case 'nombre-descendente':
-                    $sql .= " ORDER BY nombres DESC";
+                case 'tipo-efectivo':
+                    $sql .= " WHERE formaPago = 'Efectivo'";
                 break;
 
                 default:
                 break;
             }
-        }*/
+        }
         
         
         $stmt = $this->conn->prepare($sql);

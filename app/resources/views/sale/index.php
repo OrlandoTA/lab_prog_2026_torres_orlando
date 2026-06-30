@@ -20,14 +20,24 @@
 
         <div class="contenedor">
             <div class="contenedor-botones-filtros">
+                <div class="contenedor-fecha">
+                    <label for="fecha-inicio">Desde</label>
+                    <input type="date" name="fecha-inicio" id="fecha-inicio">
 
-  
+                    <label for="fecha-hasta">Hasta</label>
+                    <input type="date" name="fecha-hasta" id="fecha-hasta">
+                    
+                    <button type="button" title="buscar" class="btn-buscar" >
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button> 
+                </div>
+
                 <select  id="filtro-categoria">
-                    <option value="">Filtrar por...</option>
-                    <option value="tipo-operador"> Operador</option>
-                    <option value="tipo-Administrador">Administrador</option>
-                    <option value="nombre-descendente">Descendente(nombre)</option>
-                    <option value="nombre-ascendente">Ascendente(nombre)</option>
+                    <option value="">Forma de pago...</option>
+                    <option value="tipo-debito"> Debito </option>
+                    <option value="tipo-credito"> Credito </option>
+                    <option value="tipo-transferencia">Transferencia</option>
+                    <option value="tipo-efectivo">Efectivo</option>
                 </select>
 
                 <div class="contenedor-buscador">

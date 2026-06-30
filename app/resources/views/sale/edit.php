@@ -7,9 +7,13 @@
     <div class="fila">
         <div class="campo mitad">
             <label for="formaPago" title="Ingrese la forma de pago">Forma de pago<span class="obligatorio">*</span></label>
-            <input type="text" id="formaPago" required minlength="3" maxlength="50"
-            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]+"
-            title="Escribala forma de pago" name="formaPago" disabled>
+            <select id="select-pago" title="Seleccione una forma de pago" name = "formaPago" disabled>
+                <option value="">Seleccionar</option>
+                <option value="Debito">Debito</option>
+                <option value="Credito">Credito</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Efectivo">Efectivo</option>
+            </select>
         </div>
 
         <div class="campo mitad">
@@ -19,16 +23,17 @@
         </div>
     </div>  
 
-    <div class="campo">
-       <label for="clienteId" title="Ingrese el cliente">Cliente<span class="obligatorio">*</span></label>
+    <div class="fila">
+        <div class="campo mitad">
+            <label for="clienteId" title="Ingrese el cliente">Cliente<span class="obligatorio">*</span></label>
             <input type="text" id="clienteId" required minlength="3" maxlength="50"
             pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]+"
             title="Escribala forma de pago" name="clienteId" disabled>
-            
-        <div class="campo">
+        </div>  
+        <div class="campo mitad">
             <label for="fecha-creacion" title="Fecha en que se creó la cuenta">Fecha de creación</label>
             <input type="date" id="fecha-creacion" value="" disabled
-                title="Fecha de creación de la cuenta"  name = "fechaAlta">
+                title="Fecha de creación de la cuenta"  name = "fecha">
         </div>
     </div>
 

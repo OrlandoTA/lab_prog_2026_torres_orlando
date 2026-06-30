@@ -106,7 +106,9 @@ class SaleController extends BaseController{
 
     public function update(Request $request, Response $response){
         $data = $request->getDataFromInput();
-       $dto = new SaleDto($data);
+ 
+        $dto = new SaleDto($data);
+       
         $service = new SaleService();
         $service->update($dto);
    

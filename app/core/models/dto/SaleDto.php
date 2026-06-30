@@ -7,7 +7,8 @@ final class SaleDto {
 
     private string $formaPago;
     private int $id, $clienteId;
-    private string $numeroVenta;
+    private string $numeroVenta, $fecha;
+
 
     public function __construct(array $data = [])
     {
@@ -15,10 +16,15 @@ final class SaleDto {
         $this->setNumeroVenta($data['numeroVenta'] ?? "");
         $this->setFormaPago($data['formaPago'] ?? "");
         $this->setClienteId($data['clienteId'] ?? 0);
+        $this->setFechaAlta($data['fecha'] ?? "");
     }
 
     public function getId(): int {
         return $this->id;
+    }
+    
+    public function getFecha(): string{
+        return $this->fecha;
     }
 
     public function getNumeroVenta(): string {
@@ -48,6 +54,10 @@ final class SaleDto {
     public function setFormaPago(string $formaPago): void {
         $this->formaPago = trim($formaPago);
     }
+    
+    public function setFechaAlta(string $fecha): void{
+        $this->fecha = (strlen($fecha) === 10) ? $fecha : "";
+    }
 
     public function toArray(): array {
         return [
@@ -55,6 +65,7 @@ final class SaleDto {
             'numeroVenta' => $this->getNumeroVenta(),
             'clienteId' => $this->getClienteId(),
             'formaPago' => $this->getFormaPago(),
+            'fecha' => $this->getFecha()
         ];
     }
 
@@ -63,6 +74,7 @@ final class SaleDto {
             'numeroVenta' => $this->getNumeroVenta(),
             'clienteId' => $this->getClienteId(),
             'formaPago' => $this->getFormaPago(),
+            'fecha' => $this->getFecha()
         ];
     }
 }

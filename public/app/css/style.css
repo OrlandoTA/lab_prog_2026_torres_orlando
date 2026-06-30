@@ -382,6 +382,37 @@ HOME/INICIO
 h2{
     margin: 5px;
 }
+
+/* =========================
+CONTENEDOR PARA FECHA
+========================= */
+.contenedor-fecha{
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.contenedor-fecha label{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+#fecha-inicio, #fecha-hasta{
+    height: 40px;
+    border: 1px solid var(--color-btn-gris);
+    border-radius: 10px;
+}
+
+
+.contenedor-fecha .btn-buscar{
+    width: 50px;
+    height: 40px;
+}
+
+
+
+
+
 /* =========================
 COMPONENTES/ BOTONES
 ========================= */

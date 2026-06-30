@@ -57,16 +57,19 @@ export const view = {
 
         const sales = data[0];
         const form = document.forms['formEditSales'];
+        
         const fechaAlta = document.getElementById("fecha-creacion");
         const formFields = form.elements;
-    
+        const selectPago = document.getElementById('select-pago');
+        
+        selectPago.value = sales.formaPago;
+        
         formFields['numeroVenta'].value = sales.numeroVenta;
         
         // Fecha de alta
         if (fechaAlta) {
-            fechaAlta.value = sales.fechaAlta ?? "";
+            fechaAlta.value = sales.fecha ?? "";
         }
-        formFields['formaPago'].value = sales.formaPago;
         formFields['clienteId'].value = sales.clienteId;
     }
 

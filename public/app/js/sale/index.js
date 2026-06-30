@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     saleController.list();
     const btnCrear = document.querySelector('.btn-altas');
-
+const fecha_inicio = document.getElementById("fecha-inicio");
+const fecha_fin = document.getElementById("fecha-hasta")
     btnCrear.addEventListener('click', ()  =>{
 
         window.location.href ='?controller=sale&action=create'
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================
     const btnBuscar = document.querySelector('.btn-buscar');
     const inputBuscar = document.getElementById('input-buscar');
+    
 
     btnBuscar.addEventListener('click', async () => {
         await saleController.list({
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // ==========================
+        // ==========================
         // FILTROS
         // ==========================
         const filtro = document.getElementById('filtro-categoria');
@@ -40,6 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 buscar: inputBuscar.value.trim(),
             });
            
+        });
+
+        btnBuscar.addEventListener("click", async () => {
+
+            await saleController.list({
+                fecha_inicio: fecha_inicio.value.trim(),
+                fecha_fin: fecha_fin.value.trim(),
+                buscar: inputBuscar.value.trim()
+            });
+
         });
     
         // ==========================

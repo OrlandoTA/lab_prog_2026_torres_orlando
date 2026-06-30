@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(btnVolver){
         btnVolver.addEventListener('click', ()=>{
-            window.location.href = '?controller=customer&action=index';
+            window.location.href = '?controller=sale&action=index';
         })
     }
 
@@ -46,6 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+
+    const selectPagos = document.getElementById('select-pago');
+    if (selectPagos) {
+        selectPagos.addEventListener('mousedown', function(e) {
+            var option = e.target;
+            if (option.tagName === 'OPTION') {
+                e.preventDefault();
+                // Invertimos la selección de forma manual
+                option.selected = !option.selected;
+            }
+        });
+
+    } 
+
     btnGuardar.addEventListener("click", async (e) => {
 
         e.preventDefault();
@@ -59,14 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: "Producto actualizado correctamente",
                 icon: "success",
                 timer: 20000,
-                showConfirmButton: false
+                showConfirmButton: true
             });
-        } catch (error) {
-            Swal.fire({
-                title: "Error",
-                text: error.message,
-                icon: "error"
-            });
+            } catch (error) {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                });
         }
         saleController.enableForm(false);
 

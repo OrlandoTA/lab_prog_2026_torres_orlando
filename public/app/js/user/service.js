@@ -52,6 +52,7 @@ export const userService = {
     },
 
     update: user => {
+        
         fetch('user/update', {
             method: "POST",
             headers: {
