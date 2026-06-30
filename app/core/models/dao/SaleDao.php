@@ -23,24 +23,27 @@ final class SaleDao extends BaseDao implements InterfaceDao{
     }
     
 
-    public function save(array $data): void{
+public function save(array $data): void {
 
-        $sql = "INSERT INTO {$this->table} VALUES(DEFAULT, :numeroVenta, NOW(), :clienteId, :formaPago)";
-        
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute($data);
-    }
+    $sql = "INSERT INTO {$this->table}
+            (numeroVenta, fecha, clienteId, formaPago)
+            VALUES (:numeroVenta, NOW(), :clienteId, :formaPago)";
 
-    public function update(array $data): void{
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute($data);
+}
 
-        $sql = "UPDATE {$this->table}
+public function update(array $data): void {
+
+    $sql = "UPDATE {$this->table}
             SET numeroVenta = :numeroVenta,
+                clienteId = :clienteId,
                 formaPago = :formaPago,
-                fecha = :fecha,
-                perfil = :perfil,
+                fecha = NOW()
             WHERE id = :id";
-        $this->updateQuery($sql, $data);
-    }
+
+    $this->updateQuery($sql, $data);
+}
 
 
 

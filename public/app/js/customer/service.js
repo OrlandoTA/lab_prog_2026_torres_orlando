@@ -1,4 +1,4 @@
-export const CustomerService = {
+export const customerService = {
     load: async id => {
         let result = [];
         await fetch('customer/load', {

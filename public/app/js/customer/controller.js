@@ -12,7 +12,7 @@ const btnExportar = document.getElementById('btn-exportar');
 
 
 
-//Se construye el objeto userController
+
 export const customerController = {
 
     load: async function (id) {
@@ -20,7 +20,7 @@ export const customerController = {
         currentCustomerId = id;
         
         const customer =  await customerService.load(id);
-        //view.editUser(user);
+        view.editCustomer(customer);
     },
 
     save: async function () {
@@ -46,7 +46,7 @@ export const customerController = {
 
     list: async (filters = {}) => {
         let customers = await customerService.list(filters);
-        //view.listUsers(users);
+        view.listCustomers(customers);
 
     },
 

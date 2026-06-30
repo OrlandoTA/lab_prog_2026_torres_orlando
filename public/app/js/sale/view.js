@@ -56,11 +56,16 @@ export const view = {
     editSales: data =>{
 
         const sales = data[0];
-        const form = document.forms['formEditItems'];
+        const form = document.forms['formEditSales'];
+        const fechaAlta = document.getElementById("fecha-creacion");
         const formFields = form.elements;
     
         formFields['numeroVenta'].value = sales.numeroVenta;
-        formFields['fecha'].value = sales.descripcion;
+        
+        // Fecha de alta
+        if (fechaAlta) {
+            fechaAlta.value = sales.fechaAlta ?? "";
+        }
         formFields['formaPago'].value = sales.formaPago;
         formFields['clienteId'].value = sales.clienteId;
     }

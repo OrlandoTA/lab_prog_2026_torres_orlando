@@ -3,85 +3,66 @@
 namespace app\core\models\dto;
 
 
+final class SaleDto {
 
-
-final class SaleDto{
-
-    private string $formaPago, $fechaAlta;
-    private int $id, $numeroVenta, $clienteId;
+    private string $formaPago;
+    private int $id, $clienteId;
+    private string $numeroVenta;
 
     public function __construct(array $data = [])
     {
         $this->setId($data['id'] ?? 0);
-        $this->setNumeroVenta($data['numeroVenta'] ?? 0);
+        $this->setNumeroVenta($data['numeroVenta'] ?? "");
         $this->setFormaPago($data['formaPago'] ?? "");
-        $this->setFecha($data['fecha'] ?? "");
         $this->setClienteId($data['clienteId'] ?? 0);
     }
 
-    /** GETTERS */
-
-    public function getId(): int{
+    public function getId(): int {
         return $this->id;
     }
 
-    public function getNumeroVenta(): int{
+    public function getNumeroVenta(): string {
         return $this->numeroVenta;
     }
 
-    public function getFormaPago(): string{
+    public function getFormaPago(): string {
         return $this->formaPago;
     }
-    
-    public function getClienteId(): int{
+
+    public function getClienteId(): int {
         return $this->clienteId;
     }
 
-    public function getFecha(): string{
-        return $this->fecha;
-    }
-
-    /** SETTERS */
-
-    public function setId(int $id): void{
+    public function setId(int $id): void {
         $this->id = ($id > 0) ? $id : 0;
     }
 
-    public function setClienteId(int $clienteId): void{
-        $this->clienteId = ($clienteId === 0 || $clienteId === 1) ? $clienteId : 0;
+    public function setClienteId(int $clienteId): void {
+        $this->clienteId = ($clienteId > 0) ? $clienteId : 0;
     }
 
-    public function setNumeroVenta(int $numeroVenta): void{
-        $this->numeroVenta = ($numeroVenta === 0 || $numeroVenta === 1) ? $numeroVenta : 1;
+    public function setNumeroVenta(string $numeroVenta): void {
+        $this->numeroVenta = trim($numeroVenta);
     }
 
-    public function setFormaPago(string $formaPago): void{
-        $pagoTrimeado = trim($formaPago);
-        $this->formaPago = (strlen($pagoTrimeado) > 0 && strlen($pagoTrimeado) <= 100) ? $pagoTrimeado : "";
+    public function setFormaPago(string $formaPago): void {
+        $this->formaPago = trim($formaPago);
     }
 
-
-    public function setFecha(string $fecha): void{
-        $this->fecha = (strlen($fecha) === 10) ? $fecha : "";
-    }
-
-    public function toArray(){
+    public function toArray(): array {
         return [
-            'id'        => $this->getId(),
-            'numeroVenta'  => $this->getNumeroVenta(),
-            'clienteId'   => $this->getClienteId(),
-            'formaPago'    => $this->getFormaPago(),
-            'fecha' => $this->getFecha(),
-
+            'id' => $this->getId(),
+            'numeroVenta' => $this->getNumeroVenta(),
+            'clienteId' => $this->getClienteId(),
+            'formaPago' => $this->getFormaPago(),
         ];
     }
 
-    public function toArrayForSave(){
+    public function toArrayForSave(): array {
         return [
-            'numeroVenta'  => $this->getNumeroVenta(),
-            'clienteId'   => $this->getClienteId(),
-            'formaPago'    => $this->getFormaPago(),
+            'numeroVenta' => $this->getNumeroVenta(),
+            'clienteId' => $this->getClienteId(),
+            'formaPago' => $this->getFormaPago(),
         ];
     }
-
 }

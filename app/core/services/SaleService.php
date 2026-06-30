@@ -51,19 +51,18 @@ final class SaleService extends BaseService{
 
 
 
-    public function validate(SaleDto $dto):void{
+    public function validate(SaleDto $dto): void {
 
-      
-        if($dto -> getNumeroVenta() == ""){
-            throw new \Exception("El campo <strong>numero de venta</strong> es obligatorio");
+        if ($dto->getNumeroVenta() == "") {
+            throw new \Exception("El número de venta es obligatorio");
         }
-/*
-        if($dto ->getClienteId()<= 0){
-            throw new \Exception("El campo <strong>cliente</strong> es obligatorio");
+
+        if ($dto->getClienteId() <= 0) {
+            throw new \Exception("El cliente es obligatorio");
         }
-*/
-        if($dto ->getFormaPago() ==  ""){
-            throw new \Exception("El campo <strong>Forma de pago</strong> es obligatorio");
+
+        if ($dto->getFormaPago() == "") {
+            throw new \Exception("La forma de pago es obligatoria");
         }
     }
 

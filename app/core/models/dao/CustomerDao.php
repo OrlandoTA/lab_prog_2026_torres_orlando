@@ -1,181 +1,212 @@
 <?php
 
 namespace app\core\models\dao;
+
 use PDO;
-use app\core\models\dto\CustomerDto;
 use app\core\models\dao\base\BaseDao;
 use app\core\models\dao\base\InterfaceDao;
 
-final class CustomerDao extends BaseDao implements InterfaceDao{
-
+final class CustomerDao extends BaseDao implements InterfaceDao
+{
     public function __construct(\PDO $conn)
     {
         parent::__construct($conn, "clientes");
     }
 
-
-    public function load(int $id): array{
+    public function load(int $id): array
+    {
         $sql = "SELECT * FROM {$this->table} WHERE id = :id";
 
-        return $this->selectQuery($sql, ['id' => $id]);
-        
-    
+        return $this->selectQuery($sql, [
+            'id' => $id
+        ]);
     }
-    
 
-    public function save(array $data): void{
+    public function save(array $data): void
+    {
+        $sql = "INSERT INTO {$this->table}
+                (
+                    tipo,
+                    apellido,
+                    nombres,
+                    dni,
+                    razonSocial,
+                    cuit,
+                    telefono,
+                    correo,
+                    domicilio,
+                    fechaAlta
+                )
+                VALUES
+                (
+                    :tipo,
+                    :apellido,
+                    :nombres,
+                    :dni,
+                    :razonSocial,
+                    :cuit,
+                    :telefono,
+                    :correo,
+                    :domicilio,
+                    NOW()
+                )";
 
-        $sql = "INSERT INTO {$this->table} VALUES(DEFAULT, :tipo, :apellido, :nombres, :dni,  :razonSocial, :cuit,:telefono, :correo,:domicilio, NOW())";
-        
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($data);
     }
 
-    public function update(array $data): void{
-
-
-
+    public function update(array $data): void
+    {
         $sql = "UPDATE {$this->table}
-            SET apellido = :apellido,
-                nombres = :nombres,
-                cuenta = :cuenta,
-                perfil = :perfil,
-                clave = :clave,
-                correo = :correo,
-                estado = :estado,
-                fechaAlta = :fechaAlta,
-                resetPass = :resetPass
-            WHERE id = :id";
+                SET
+                    tipo = :tipo,
+                    apellido = :apellido,
+                    nombres = :nombres,
+                    dni = :dni,
+                    razonSocial = :razonSocial,
+                    cuit = :cuit,
+                    telefono = :telefono,
+                    correo = :correo,
+                    domicilio = :domicilio,
+                    estado = :estado,
+                    fechaAlta =:fechaAlta
+                WHERE id = :id";
+
         $this->updateQuery($sql, $data);
     }
 
-    public function login(string $cuenta): array{
-
-        $sql = "SELECT
-                    user.id,
-                    user.apellido,
-                    user.nombres,
-                    user.cuenta,
-                    user.clave,
-                    user.perfil,
-                    user.estado,
-                    user.resetPass
-                FROM usuarios AS user
-                WHERE (user.cuenta = :cuenta OR user.correo = :cuenta)";
-
-        $result = $this->selectQuery($sql, [
-            "cuenta" => $cuenta
-        ]);
-
-        if(count($result) !== 1){
-            throw new \Exception("El nombre de usuario o la contraseña no coinciden.");
-        }
-
-        return $result[0];
-    }
-
-    public function updatePassword(array $data): void{
-        $sql = "UPDATE {$this->table}";
-        $sql .= " SET clave =:clave";
-        $sql .= " WHERE id = :id";
-        $this->updateQuery($sql, $data);
-    }
-
-
-    public function delete(int $id): void{
-        $sql = "DELETE FROM usuarios WHERE id = :id";
+    public function delete(int $id): void
+    {
+        $sql = "DELETE FROM {$this->table} WHERE id = :id";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['id' => $id]);
+        $stmt->execute([
+            'id' => $id
+        ]);
     }
 
-    public function list(array $filters): array{
+    public function list(array $filters): array
+    {
         return $this->searchByFilter($filters);
     }
 
-    public function enable(UserDto $dto): void{
+    private function searchByFilter(array $filters): array
+    {
+        $condiciones = [];
+        $parametros = [];
 
-        $sql = "UPDATE {$this->table}
-                SET estado = 1
-                WHERE id = :id";
+        if (!empty($filters['buscar'])) {
+            $condiciones[] = "(nombres LIKE :buscar
+                            OR apellido LIKE :buscar
+                            OR razonSocial LIKE :buscar
+                            OR correo LIKE :buscar)";
+            $parametros['buscar'] = "%" . $filters['buscar'] . "%";
+        }
 
-        $stmt = $this->conn->prepare($sql);
+        if (!empty($filters['ordenar'])) {
 
-        $stmt->execute([
-            'id' => $dto->getId()
-        ]);
-    }
+            switch ($filters['ordenar']) {
 
-  public function disable(UserDto $dto): void{
-        $sql = "UPDATE {$this->table}
-                SET estado = 0
-                WHERE id = :id";
+                case 'tipo-empresa':
+                    $condiciones[] = "tipo = 'Empresa'";
+                    break;
 
-        $stmt = $this->conn->prepare($sql);
+                case 'tipo-particular':
+                    $condiciones[] = "tipo = 'Particular'";
+                    break;
+            }
 
-        $stmt->execute([
-            'id' => $dto->getId()
-        ]);
-    }
-
-  public function reset(UserDto $dto): void{
-        $sql = "UPDATE {$this->table}
-                SET resetPass = 1
-                WHERE id = :id";
-
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->execute([
-            'id' => $dto->getId()
-        ]);
-    }
-
-
-
-
-
-    //Metodo para buscar con los filtros 
-    private function searchByFilter(array $filters):array{
-       $condiciones= [];
-       $parametros = [];
-        if(!empty($filters['buscar'])){
-            $condiciones[] = "(nombres LIKE :buscar OR cuenta LIKE :buscar OR perfil LIKE :buscar OR correo LIKE :buscar OR apellido LIKE :buscar)";
-            $parametros['buscar'] = "%" . $filters['buscar'] ."%";
         }
 
         $sql = "SELECT * FROM {$this->table}";
 
-        if(!empty($condiciones)){
+        if (!empty($condiciones)) {
             $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
-        if(!empty($filters['ordenar'])){
-            switch($filters['ordenar']){
-                case 'tipo-Administrador':
-                $sql .= " WHERE perfil = 'Administrador'";
-                break;
 
-                case 'tipo-operador':
-                    $sql .= " WHERE perfil = 'Operador'";
-                break;
+        if (!empty($filters['ordenar'])) {
+
+            switch ($filters['ordenar']) {
 
                 case 'nombre-ascendente':
                     $sql .= " ORDER BY nombres ASC";
-                break;
+                    break;
 
                 case 'nombre-descendente':
                     $sql .= " ORDER BY nombres DESC";
-                break;
+                    break;
 
-                default:
-                break;
+                case 'razonSocial-ascendente':
+                    $sql .= " ORDER BY razonSocial ASC";
+                    break;
+
+                case 'razonSocial-descendente':
+                    $sql .= " ORDER BY razonSocial DESC";
+                    break;
             }
+
         }
-        
-        
+
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($parametros);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function validateCorreo(int $id, string $correo): void
+    {
+        $sql = "SELECT id
+                FROM {$this->table}
+                WHERE correo = :correo
+                AND id <> :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id,
+            'correo' => $correo
+        ]);
+
+        if ($stmt->rowCount() != 0) {
+            throw new \Exception("El correo {$correo} ya está registrado.");
+        }
+    }
+
+    public function validateDni(int $id, string $dni): void
+    {
+        $sql = "SELECT id
+                FROM {$this->table}
+                WHERE dni = :dni
+                AND id <> :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id,
+            'dni' => $dni
+        ]);
+
+        if ($stmt->rowCount() != 0) {
+            throw new \Exception("El DNI {$dni} ya está registrado.");
+        }
+    }
+
+    public function validateCuit(int $id, string $cuit): void
+    {
+        $sql = "SELECT id
+                FROM {$this->table}
+                WHERE cuit = :cuit
+                AND id <> :id";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute([
+            'id' => $id,
+            'cuit' => $cuit
+        ]);
+
+        if ($stmt->rowCount() != 0) {
+            throw new \Exception("El CUIT {$cuit} ya está registrado.");
+        }
+    }
 }

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(btnVolver){
         btnVolver.addEventListener('click', ()=>{
-            window.location.href = '?controller=item&action=index';
+            window.location.href = '?controller=user&action=index';
         })
     }
 

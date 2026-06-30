@@ -14,10 +14,10 @@
 
         <div class="campo mitad">
             <label for="numeroVenta" title="Ingrese el numero de venta">Numero de venta<span class="obligatorio">*</span></label>
-            <input name="numeroVenta" type="number" id="numeroVenta" required min="0" max="1000000" step="0.01"
-            title="Escriba el código del producto (solo letras y números, sin espacios)">
+            <input name="numeroVenta" type="text" id="numeroVenta" required min="0" max="1000000" step="0.01"
+            title="Escriba el numero de venta (solo letras y números, sin espacios)">
         </div>
-    </div>
+    </div>  
 
     <div class="campo">
        <label for="clienteId" title="Ingrese el cliente">Cliente<span class="obligatorio">*</span></label>
