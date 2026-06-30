@@ -66,7 +66,10 @@ export const view = {
         formFields['cuenta'].value = user.cuenta;
         formFields['perfil'].value = user.perfil;
         selectEstado.checked = user.estado == 1;
-        fechaAlta.value = user.fechaAlta;
+                // Fecha de alta
+        if (fechaAlta) {
+            fechaAlta.value = user.fechaAlta ?? "";
+        }
     }
 
 

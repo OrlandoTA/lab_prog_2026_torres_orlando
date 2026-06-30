@@ -42,7 +42,7 @@ final class UserDao extends BaseDao implements InterfaceDao{
 
         $this->validateCuenta($data['id'], $data['cuenta']);
         $this->validateCorreo($data['id'], $data['correo']);
-
+    /*
         $sql = "UPDATE {$this->table}
             SET apellido = :apellido,
                 nombres = :nombres,
@@ -53,7 +53,34 @@ final class UserDao extends BaseDao implements InterfaceDao{
                 estado = :estado,
                 fechaAlta = :fechaAlta,
                 resetPass = :resetPass
+            WHERE id = :id";*/
+
+    if ($data['clave'] != "") {
+
+        $sql = "UPDATE usuarios
+                SET apellido = :apellido,
+                    nombres = :nombres,
+                    cuenta = :cuenta,
+                    perfil = :perfil,
+                    clave = :clave,
+                    correo = :correo,
+                    estado = :estado,
+                    fechaAlta = :fechaAlta,
+                    resetPass = :resetPass
+                WHERE id = :id";
+    } else {
+        unset($data['clave']);
+        $sql = "UPDATE usuarios
+            SET  apellido = :apellido,
+                nombres = :nombres,
+                cuenta = :cuenta,
+                perfil = :perfil,
+                correo = :correo,
+                estado = :estado,
+                fechaAlta = :fechaAlta,
+                resetPass = :resetPass
             WHERE id = :id";
+    }
         $this->updateQuery($sql, $data);
     }
 
