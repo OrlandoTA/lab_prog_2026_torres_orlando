@@ -131,14 +131,29 @@ export const customerService = {
     },
 
     search: async buscar => {
-       const response = await fetch(
-        `?controller=customer&action=search&buscar=${encodeURIComponent(buscar)}`
-       );
 
-       const data = await response.json();
-       return data.success?data.data:[];
-    }
+        let result = [];
 
+        await fetch("customer/search", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify({
+                buscar
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
 
+            if(data.success){
+                result = data.data;
+            }
+
+        });
+
+        return result;
+    },
 
 };
