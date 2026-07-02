@@ -1,15 +1,23 @@
 import { saleController } from './controller.js';
-import { view } from './view.js'
+import { viewSale } from './view.js'
 
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    view.init();
+    viewSale.init();
     
     saleController.list();
     const btnCrear = document.querySelector('.btn-altas');
-const fecha_inicio = document.getElementById("fecha-inicio");
-const fecha_fin = document.getElementById("fecha-hasta")
+    const fecha_inicio = document.getElementById("fecha-inicio");
+    const fecha_fin = document.getElementById("fecha-hasta")
+    const btnExportar = document.querySelector('.btn-exportar');
+
+    btnExportar.addEventListener('click' , () =>{
+        window.print();
+    })
+
+    
+
     btnCrear.addEventListener('click', ()  =>{
 
         window.location.href ='?controller=sale&action=create'

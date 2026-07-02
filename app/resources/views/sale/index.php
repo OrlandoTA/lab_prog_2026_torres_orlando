@@ -57,7 +57,6 @@
                         <tr>
                             <th>NRO DE VENTA</th>
                             <th>FECHA</th>
-                            <th>CLIENTE</th>
                             <th>FORMA DE PAGO</th>
                             <th>OPCIONES</th>
                         </tr>

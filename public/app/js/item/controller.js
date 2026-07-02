@@ -1,5 +1,6 @@
 import { itemService } from './service.js';
 import { view } from './view.js';
+import { viewSale } from '../sale/view.js'
 
 //Variable para guardar el id del Producto a actualizar
 var currentItemId = null;
@@ -26,6 +27,7 @@ export const itemController = {
 
     save: async function () {
         let data = Object.fromEntries(new FormData(form));
+        
         data.categorias = [...document.getElementById('categorias-select').selectedOptions]
         .map(opcion => opcion.value);
 
@@ -36,8 +38,10 @@ export const itemController = {
     update: async function () {
 
         let data = Object.fromEntries(new FormData(form));
+        
         data.categorias = [...document.getElementById('categorias-select').selectedOptions]
         .map(opcion => opcion.value);
+       
         data.id = currentItemId;
 
         await itemService.update(data);
@@ -56,24 +60,13 @@ export const itemController = {
 
     },
 
-
-    search: async function (text) {
-
-        const items = await itemService.list({
-            search: text
-        });
-
-        this.renderTable(items);
-
+    search: async buscar => {
+        const productos = await itemService.search(buscar);
+        viewSale.showProductSuggestions(productos);
     },
 
     exportPDF: function () {
-        if (!btnExportar) return;
-
-        //El boton se ejecuta si se hace click en el 
-        btnExportar.addEventListener('click', () => {
-            window.print();
-        })
+        
     },
 
     resetForm: function () {

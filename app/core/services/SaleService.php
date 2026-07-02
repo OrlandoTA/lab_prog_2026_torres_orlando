@@ -2,6 +2,8 @@
 
 namespace app\core\services;
 
+use app\core\models\dto\CustomerDto;
+use app\core\models\dao\CustomerDao;
 use app\core\services\base\BaseService;
 use app\core\models\dao\SaleDao;
 use app\libs\database\Connection;
@@ -19,13 +21,31 @@ final class SaleService extends BaseService{
   
 
     public function save(SaleDto $dto): void{
-        $this->validate($dto);
+        $this->validate($dto);   
         $this->dao->save($dto->toArrayForSave());
     }
 
 
     public function load(SaleDto $dto):array{
-        return $this->dao->load($dto->getId());
+
+        //Se guarda el resultado del saledao/load en una variable
+        $sales = $this->dao->load($dto->getId());
+
+        $sale = $sales[0];
+
+        //Se hacew la coneccion del dao de los clientes
+        $clienteDao = new CustomerDao(Connection::get());
+
+
+        //Se obtiene los clientes y se manda por parametro el id del cliente
+        $cliente = $clienteDao->load($sale['clienteId']);
+
+        if (!empty($cliente)) {
+            $sale['clienteNombre'] =
+            $cliente[0]['apellido'] . ', ' . $cliente[0]['nombres'];
+        }
+
+        return [$sale];
     }
 
 

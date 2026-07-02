@@ -38,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } 
 
+    const btnExportar = document.getElementById('btn-exportar');
+    btnExportar.addEventListener('click', ()=>{
+        window.print();
+    })
+
 
     // Obtener id desde la URL
     const params = new URLSearchParams(window.location.search);

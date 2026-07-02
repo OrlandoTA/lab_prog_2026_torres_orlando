@@ -2,6 +2,7 @@
 
 namespace app\core\controllers;
 
+use app\core\services\CustomerService;
 use app\core\models\dto\SaleDto;
 use app\core\services\SaleService;
 use app\core\controllers\base\BaseController;
@@ -33,7 +34,9 @@ class SaleController extends BaseController{
             ],
            
         ];
-    $this->requireProfile(['Administrador']);
+        
+        $this->requireProfile(['Administrador']);
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -42,24 +45,25 @@ class SaleController extends BaseController{
         
         array_push($this->modules, "app/js/sale/create.js");
 
-         $this->breadcrumb = [
-        [
-            'title' => 'Inicio',
-            'url' => APP_URL . '?controller=home&action=index',
-            'icono' => 'home-outline',
-            'class' => 'firts',
-        ],
-        [
-            'title' => 'Gestion de Venta',
-            'url' => APP_URL . '?controller=sale&action=index',
-            'icono' => 'wallet-outline',
-        ],
-        [
-            'class' => 'last active',
-            'title' => 'Agregar Venta'
-        ]
-    ];
-     $this->requireProfile(['Administrador']);
+        $this->breadcrumb = [
+            [
+                'title' => 'Inicio',
+                'url' => APP_URL . '?controller=home&action=index',
+                'icono' => 'home-outline',
+                'class' => 'firts',
+            ],
+            [
+                'title' => 'Gestion de Venta',
+                'url' => APP_URL . '?controller=sale&action=index',
+                'icono' => 'wallet-outline',
+            ],
+            [
+                'class' => 'last active',
+                'title' => 'Agregar Venta'
+            ]
+        ];
+        $this->requireProfile(['Administrador']);
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
@@ -103,7 +107,7 @@ class SaleController extends BaseController{
         ];
 
         $this->requireProfile(['Administrador']);
-        
+
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }

@@ -13,6 +13,27 @@ final class CustomerDao extends BaseDao implements InterfaceDao
         parent::__construct($conn, "clientes");
     }
 
+    public function search(String $buscar):array{
+        $sql = "SELECT id, apellido, nombres
+            FROM {$this->table}
+            WHERE apellido LIKE :buscar
+            OR nombres LIKE :buscar
+            ORDER BY apellido, nombres
+            LIMIT 10
+        ";
+    $stmt = $this->conn->prepare($sql);
+
+    $stmt->execute([
+        'buscar' => "%{$buscar}%"
+    ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+
     public function load(int $id): array
     {
         $sql = "SELECT * FROM {$this->table} WHERE id = :id";
@@ -153,60 +174,5 @@ final class CustomerDao extends BaseDao implements InterfaceDao
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function validateCorreo(int $id, string $correo): void
-    {
-        $sql = "SELECT id
-                FROM {$this->table}
-                WHERE correo = :correo
-                AND id <> :id";
 
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->execute([
-            'id' => $id,
-            'correo' => $correo
-        ]);
-
-        if ($stmt->rowCount() != 0) {
-            throw new \Exception("El correo {$correo} ya está registrado.");
-        }
-    }
-
-    public function validateDni(int $id, string $dni): void
-    {
-        $sql = "SELECT id
-                FROM {$this->table}
-                WHERE dni = :dni
-                AND id <> :id";
-
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->execute([
-            'id' => $id,
-            'dni' => $dni
-        ]);
-
-        if ($stmt->rowCount() != 0) {
-            throw new \Exception("El DNI {$dni} ya está registrado.");
-        }
-    }
-
-    public function validateCuit(int $id, string $cuit): void
-    {
-        $sql = "SELECT id
-                FROM {$this->table}
-                WHERE cuit = :cuit
-                AND id <> :id";
-
-        $stmt = $this->conn->prepare($sql);
-
-        $stmt->execute([
-            'id' => $id,
-            'cuit' => $cuit
-        ]);
-
-        if ($stmt->rowCount() != 0) {
-            throw new \Exception("El CUIT {$cuit} ya está registrado.");
-        }
-    }
 }

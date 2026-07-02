@@ -151,11 +151,17 @@ class ItemController extends BaseController{
         $response->send();
     }
     
-    public function suggestive(Request $request, Response $response){
-        // $service = new MaterialService($request->getController());
-        // $data = $service->suggestive($request->getDataFromInput());
-        // $response->setResult($data);
-        // $response->send();
+    public function search(Request $request, Response $response){
+    $buscar = $request->getParameterValue("buscar", "");
+
+        $service = new ItemService();
+
+        $response->setData(
+            $service->search($buscar)
+        );
+
+        $response->send();
+
     }
 
 }

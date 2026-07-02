@@ -1,7 +1,7 @@
-export const view = {
+export const viewSale = {
     forms: {},
     init: () => {
-        view.forms.sales = document.forms['formAlta']
+        viewSale.forms.sales = document.forms['formAlta']
     },
     resetForm: () => {},
 
@@ -26,10 +26,6 @@ export const view = {
 
 
                 <td>
-                    ${sales.clienteId}
-                </td>
-
-                <td>
                     ${sales.formaPago}
                 </td>
 
@@ -52,6 +48,73 @@ export const view = {
         })
     },
 
+    showSuggestions : (clientes, activeIndex = -1) => {
+
+        const lista = document.getElementById("lista-clientes");
+        lista.innerHTML = "";
+
+        // CASO: NO HAY RESULTADOS
+        if (clientes.length === 0) {
+            lista.innerHTML = `
+                <div class="no-result">
+                    Cliente no encontrado
+                </div>
+            `;
+            return;
+        }
+
+        // LISTA NORMAL
+        clientes.forEach((c, index) => {
+
+            const div = document.createElement("div");
+
+            div.classList.add("clientes-item");
+
+            if (index === activeIndex) {
+                div.classList.add("active");
+            }
+
+            div.dataset.id = c.id;
+
+            div.textContent = `${c.apellido}, ${c.nombres}`;
+
+            lista.appendChild(div);
+        });
+    },
+
+showProductSuggestions: (productos, activeIndex = -1) => {
+
+    const lista = document.getElementById("lista-productos");
+    lista.innerHTML = "";
+
+    if (productos.length === 0) {
+        lista.innerHTML = `
+            <div class="no-result">
+                Producto no encontrado
+            </div>
+        `;
+        return;
+    }
+
+    productos.forEach((p, index) => {
+
+        const div = document.createElement("div");
+
+        div.classList.add("producto-item");
+
+        if (index === activeIndex) {
+            div.classList.add("active");
+        }
+
+        div.dataset.id = p.id;
+
+        div.textContent = `${p.nombre} - $${p.precio}`;
+
+        lista.appendChild(div);
+    });
+},
+
+
 
     editSales: data =>{
 
@@ -62,15 +125,22 @@ export const view = {
         const formFields = form.elements;
         const selectPago = document.getElementById('select-pago');
         
-        selectPago.value = sales.formaPago;
-        
+        const inputCliente = document.getElementById("input-cliente");
+        const hiddenCliente = document.getElementById("clienteId");
+
+        inputCliente.value = sales.clienteNombre;   
+        hiddenCliente.value = sales.clienteId;   
+
+
         formFields['numeroVenta'].value = sales.numeroVenta;
+       
+        selectPago.value = sales.formaPago;
         
         // Fecha de alta
         if (fechaAlta) {
             fechaAlta.value = sales.fecha ?? "";
         }
-        formFields['clienteId'].value = sales.clienteId;
+       
     }
 
 

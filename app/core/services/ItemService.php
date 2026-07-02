@@ -15,6 +15,12 @@ final class ItemService extends BaseService{
         parent::__construct(new ItemDao(connection::get()));
     }
 
+    public function search(String $buscar):array{
+        return $this->dao->search($buscar);
+    }
+
+
+
     public function save(ItemDto $dto): void{
         $this -> validate($dto);
 

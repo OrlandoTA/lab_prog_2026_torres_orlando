@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
              window.location.href ='?controller=customer&action=create';
     })
 
+
+    const btnExportar = document.querySelector('.btn-exportar');
+
+    btnExportar.addEventListener('click' , () =>{
+        window.print();
+    })
+
     // ==========================
     // BUSCAR
     // ==========================

@@ -3,7 +3,12 @@ import { itemController } from './controller.js';
 import { view } from './view.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-     view.init();
+    view.init();
+    const btnExportar = document.querySelector('.btn-exportar');
+
+    btnExportar.addEventListener('click', ()=>{
+        window.print();
+    })
 
     // Cargar usuarios al abrir la página
     itemController.list();
@@ -23,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Buscar con Enter
    /* inputBuscar.addEventListener('keydown', async (e) => {
-
         if (e.key === 'Enter') {
 
             e.preventDefault();
@@ -52,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
        
     });
 
-    // ==========================
-    // EXPORTAR PDF
-    // ==========================
-    itemController.exportPDF();
+
+
+
+
 
     document.getElementById('tbody-productos').onclick = (e) => {
 

@@ -16,10 +16,7 @@ final class SaleDao extends BaseDao implements InterfaceDao{
 
     public function load(int $id): array{
         $sql = "SELECT * FROM {$this->table} WHERE id = :id";
-
         return $this->selectQuery($sql, ['id' => $id]);
-        
-
     }
     
 

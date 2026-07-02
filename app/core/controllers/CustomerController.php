@@ -106,16 +106,20 @@ class CustomerController extends BaseController{
                 'title' => 'Editar cliente'
             ]
         ];
-$this->requireProfile(['Administrador', 'Operador']);
+        $this->requireProfile(['Administrador', 'Operador']);
 
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
 
     public function update(Request $request, Response $response){
+
         $data = $request->getDataFromInput();
-       $dto = new CustomerDto($data);
+        
+        $dto = new CustomerDto($data);
+        
         $service = new CustomerService();
+        
         $service->update($dto);
    
         $response->send(); 
@@ -127,7 +131,9 @@ $this->requireProfile(['Administrador', 'Operador']);
         $dto = new CustomerDto([
             'id' =>$data['id'],
         ]);
+        
         $service = new CustomerService();
+
         $service->delete($dto);
 
         $response->send();
@@ -137,6 +143,18 @@ $this->requireProfile(['Administrador', 'Operador']);
         $service = new CustomerService();
         $result = $service->list($request->getDataFromInput());
         $response->setData($result);
+        $response->send();
+    }
+    
+    public function search(Request $request, Response $response){
+        $buscar = $request->getParameterValue('buscar', '');
+
+
+        $service = new CustomerService();
+        $response->setData(
+            $service->search($buscar),
+        );
+
         $response->send();
     }
 

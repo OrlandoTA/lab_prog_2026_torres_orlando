@@ -128,5 +128,17 @@ export const customerService = {
         .catch(error => { console.error("Ha ocurrido un error", error); });
         
        return result;
+    },
+
+    search: async buscar => {
+       const response = await fetch(
+        `?controller=customer&action=search&buscar=${encodeURIComponent(buscar)}`
+       );
+
+       const data = await response.json();
+       return data.success?data.data:[];
     }
+
+
+
 };

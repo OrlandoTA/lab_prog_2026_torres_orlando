@@ -1,3 +1,4 @@
+import { viewSale } from '../sale/view.js';
 import { customerService } from './service.js';
 import { view } from './view.js'
 
@@ -50,6 +51,13 @@ export const customerController = {
 
     },
 
+    search: async (buscar) => {
+        const customers = await customerService.search(buscar);
+
+        viewSale.showSuggestions(customers);
+
+
+    },
 
 
 

@@ -19,6 +19,7 @@ class BaseController{
         $this->modules = $modules;
         $this->modals = $modals;
         $this->breadCrumb = [ ];
+
     }
 
     protected function setCurrentView(Request $request): void{
@@ -33,12 +34,16 @@ class BaseController{
         $this->scripts = $scripts;
     }
 
+    //Metodo para control de acceso dependiendo de los roles
     protected function requireProfile(array $profile):void{
+        //Se verifica que el usuario este logueado
         if(!isset($_SESSION['perfil'])){
             header("Location: " .APP_URL . "?controller=authentication&action=index");
             exit;
         }
 
+        //Verifica el rol del usuario con $_SESSION['perfil'] y se lo compara con la lista de roles ingresados 
+        //por parametros 
         if(!in_array($_SESSION['perfil'], $profile)){
             header("Location: " .APP_URL . "?controller=home&action=index");
             exit;

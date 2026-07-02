@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     view.init();
 
 
+
+    
     const btnEditar = document.getElementById('btn-editar');
     const btnGuardar = document.getElementById('btn-guardarCambios');
     const btnCancelar = document.getElementById('btn-cancelar');

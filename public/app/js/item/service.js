@@ -128,5 +128,32 @@ export const itemService = {
         .catch(error => { console.error("Ha ocurrido un error", error); });
         
        return result;
-    }
+    },
+
+
+    search: async buscar => {
+
+        let result = [];
+
+        await fetch("item/search", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            body: JSON.stringify({
+                buscar
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+
+            if(data.success){
+                result = data.data;
+            }
+
+        });
+
+        return result;
+    },
 };

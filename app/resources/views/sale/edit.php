@@ -6,7 +6,7 @@
 
     <div class="fila">
         <div class="campo mitad">
-            <label for="formaPago" title="Ingrese la forma de pago">Forma de pago<span class="obligatorio">*</span></label>
+            <label for="select-pago" title="Ingrese la forma de pago">Forma de pago<span class="obligatorio">*</span></label>
             <select id="select-pago" title="Seleccione una forma de pago" name = "formaPago" disabled>
                 <option value="">Seleccionar</option>
                 <option value="Debito">Debito</option>
@@ -25,11 +25,14 @@
 
     <div class="fila">
         <div class="campo mitad">
-            <label for="clienteId" title="Ingrese el cliente">Cliente<span class="obligatorio">*</span></label>
-            <input type="text" id="clienteId" required minlength="3" maxlength="50"
-            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]+"
-            title="Escribala forma de pago" name="clienteId" disabled>
-        </div>  
+            <label for="input-cliente" title="Seleccione un cliente">Clientes<span class="obligatorio">*</span></label>
+            <input type="text" id="input-cliente" placeholder = "Buscar cliente..." autocomplete = "off" disabled>
+            
+            <input type="hidden" id = "clienteId" name = "clienteId">
+
+            <div class="lista-sugrencias" id="lista-clientes"></div>
+            
+        </div> 
         <div class="campo mitad">
             <label for="fecha-creacion" title="Fecha en que se creó la cuenta">Fecha de creación</label>
             <input type="date" id="fecha-creacion" value="" disabled

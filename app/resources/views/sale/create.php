@@ -6,7 +6,7 @@
 
     <div class="fila">
         <div class="campo mitad">
-            <label for="formaPago" title="Ingrese la forma de pago">Forma de pago<span class="obligatorio">*</span></label>
+            <label for="select-pago" title="Ingrese la forma de pago">Forma de pago<span class="obligatorio">*</span></label>
             <select id="select-pago" title="Seleccione una forma de pago" name = "formaPago" required>
                 <option value="">Seleccionar</option>
                 <option value="Debito">Debito</option>
@@ -25,10 +25,13 @@
 
     <div class="fila">
         <div class="campo mitad">
-            <label for="clienteId" title="Ingrese el cliente">Cliente<span class="obligatorio">*</span></label>
-            <input type="text" id="clienteId" required minlength="3" maxlength="50"
-            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]+"
-            title="Escribala forma de pago" name="clienteId">
+            <label for="input-cliente" title="Seleccione un cliente">Clientes<span class="obligatorio">*</span></label>
+            <input type="text" id="input-cliente" placeholder = "Buscar cliente..." autocomplete = "off">
+            
+            <input type="hidden" id = "clienteId" name = "clienteId">
+
+            <div class="lista-sugrencias" id="lista-clientes"></div>
+            
         </div>
         <div class="campo mitad">
             <label for="fecha-creacion" title="Fecha en que se creó la cuenta">Fecha de creación</label>
@@ -37,6 +40,49 @@
         </div>
         
     </div>
+
+    <div class="campo">
+       
+            <label for="input-producto" title="Seleccione un producto">Producto<span class="obligatorio">*</span></label>
+            <input type="text" id="input-producto" placeholder = "Buscar prdocuto..." autocomplete = "off">
+            
+            <input type="hidden" id = "productoId" name = "productoId">
+
+            <div class="lista-sugrencias" id="lista-productos"></div>
+    </div>
+    <div class="campo">
+       <label for="input-cantidad">Cantidad</label>
+       <input type="number" id="input-cantidad" name="cantidad" min="1">
+        <button type="button" id="btn-agregarProducto">Agregar</button>
+    </div>
+
+
+    <table class="tabla-detalle-venta">
+
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+
+        <tbody id="detalle-venta">
+            
+        </tbody>
+
+    </table>
+
+    <div class="total-venta">
+
+        <h3>Total: $<span id="total">0.00</span></h3>
+
+    </div>
+    
+
+
 
     <div class="campo-botones  botones-alta">
         <button type="button" class="btn-guardar" id="btn-guardarCambios" disabledtitle="Guardar cambios realizados">

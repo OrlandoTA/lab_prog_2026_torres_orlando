@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cargar usuarios al abrir la página
     userController.list();
 
+
+    const btnExportar = document.querySelector('.btn-exportar');
+    btnExportar.addEventListener('click', ()=>{
+        window.print();;
+    })
+
+
     // ==========================
     // BUSCAR
     // ==========================
@@ -22,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-       // ==========================
+    // ==========================
     // FILTROS
     // ==========================
     const filtro = document.getElementById('filtro-categoria');

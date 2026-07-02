@@ -12,6 +12,25 @@ final class ItemDao extends BaseDao implements InterfaceDao{
     {
         parent::__construct($conn, "productos");
     }
+    
+    //Consulta para hacer el sugestivo 
+    public function search(String $buscar):array{
+        $sql = "SELECT id, nombre, precio, stock
+                FROM productos
+                WHERE nombre LIKE :buscar
+                OR codigo LIKE :buscar
+                LIMIT 10";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute([
+            'buscar' => "%{$buscar}%"
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     public function load(int $id): array{
         $sql = "SELECT nombre, descripcion, precio, stock FROM {$this->table} WHERE id = :id";
@@ -59,23 +78,12 @@ final class ItemDao extends BaseDao implements InterfaceDao{
         return $this->searchByFilter($filters);
     }
 
-    private function validateCodigo(int $id, string $codigo): void{
-        $sql = "SELECT id FROM {$this->table} WHERE codigo = :codigo && id != :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            'id'     => $id,
-            'codigo' => $codigo
-        ]);
-        if($stmt->rowCount() != 0){
-            throw new \Exception("El codigo {$codigo} ya esta siendo usada por otro producto.");
-        }
-    }
-
     //Metodo para buscar con los filtros 
     private function searchByFilter(array $filters):array{
        $condiciones= [];
        $parametros = [];
-        if(!empty($filters['buscar'])){
+        
+       if(!empty($filters['buscar'])){
             $condiciones[] = "(nombre LIKE :buscar OR descripcion LIKE :buscar OR codigo LIKE :buscar)";
             $parametros['buscar'] = "%" . $filters['buscar'] ."%";
         }
@@ -85,6 +93,7 @@ final class ItemDao extends BaseDao implements InterfaceDao{
         if(!empty($condiciones)){
             $sql .= " WHERE " . implode(" AND ", $condiciones);
         }
+        
         if(!empty($filters['ordenar'])){
             switch($filters['ordenar']){
                 case 'menor-precio':

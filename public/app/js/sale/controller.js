@@ -1,5 +1,6 @@
 import { saleService } from './service.js';
-import { view } from './view.js';
+import { viewSale } from './view.js';
+import { customerService } from '../customer/service.js';
 
 //Variable para guardar el id del Producto a actualizar
 var currentSaleId = null;
@@ -12,6 +13,7 @@ const btnExportar = document.getElementById('btn-exportar');
 
 
 
+
 //Se construye el objeto saleController
 export const saleController = {
 
@@ -20,7 +22,7 @@ export const saleController = {
         currentSaleId = id;
         
         const sale =  await saleService.load(id);
-        view.editSales(sale); 
+        viewSale.editSales(sale); 
 
     },
 
@@ -56,7 +58,7 @@ export const saleController = {
 
     list: async (filters = {})=> {
         let sales = await saleService.list(filters);
-        view.listSales(sales);//Cambiar por listSales
+        viewSale.listSales(sales);//Cambiar por listSales
 
     },
 

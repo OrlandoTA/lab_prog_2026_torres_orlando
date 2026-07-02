@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCancelar = document.getElementById('btn-cancelar');
     const btnEliminar = document.getElementById('btn-eliminar');
     const btnVolver = document.getElementById('btnVolver');
+    const btnExportar = document.getElementById('btn-exportar');
+
+    btnExportar.addEventListener('click', ()=>{
+        window.print();
+    })
 
     if(btnVolver){
         btnVolver.addEventListener('click', ()=>{

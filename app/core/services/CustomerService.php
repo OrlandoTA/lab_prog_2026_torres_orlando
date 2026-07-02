@@ -48,6 +48,10 @@ final class CustomerService extends BaseService{
         
     }
 
+    public function search(String $buscar):array{
+        return $this->dao->search($buscar);
+    }
+
 
 
 
@@ -80,7 +84,6 @@ final class CustomerService extends BaseService{
             if ($dto->getCuit() == "") {
                 throw new \Exception("El campo <strong>CUIT</strong> es obligatorio.");
             }
-
         }
 
         if ($dto->getTelefono() == "") {
@@ -113,15 +116,12 @@ final class CustomerService extends BaseService{
     }
 
   public function validateForDelete(CustomerDto $dto): void
-{
-    if ($dto->getId() <= 0) {
-        throw new \Exception("El cliente no existe.");
-    }
+    {
+        if ($dto->getId() <= 0) {
+            throw new \Exception("El cliente no existe.");
+        }
 
-    if (empty($this->dao->load($dto->getId()))) {
-        throw new \Exception("El cliente no existe.");
     }
-}
 
 
 

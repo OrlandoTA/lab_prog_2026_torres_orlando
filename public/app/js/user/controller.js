@@ -8,7 +8,6 @@ const form = document.querySelector("form");
 
 const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
 
-const btnExportar = document.getElementById('btn-exportar');
 
 
 
@@ -58,16 +57,8 @@ export const userController = {
     },
 
     exportPDF: function () {
-
         
-
-
-        if (!btnExportar) return;
-
-        //El boton se ejecuta si se hace click en el 
-        btnExportar.addEventListener('click', () => {
-            window.print();
-        })
+        
     },
 
     resetForm: function () {
