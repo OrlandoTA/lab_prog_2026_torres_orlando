@@ -59,9 +59,6 @@ class ItemController extends BaseController{
             ]
         ];
 
-        //Se utiliza para mostrar las categorias dinamicamente en la vista
-        $categoryService = new CategoryService();
-        $this->categorias = $categoryService->list([]);
         
         $this->requireProfile(['Administrador']);
 

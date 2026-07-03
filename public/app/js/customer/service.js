@@ -131,29 +131,26 @@ export const customerService = {
     },
 
     search: async buscar => {
+        try {
 
-        let result = [];
+            const body = new URLSearchParams();
+            body.append("buscar", buscar);
 
-        await fetch("customer/search", {
-            method: "POST",
-            headers: {
-                "Content-Type":"application/json",
-                "Accept":"application/json"
-            },
-            body: JSON.stringify({
-                buscar
-            })
-        })
-        .then(r => r.json())
-        .then(data => {
+            const response = await fetch("?controller=customer&action=search", {
+                method: "POST",
+                body
+            });
 
-            if(data.success){
-                result = data.data;
-            }
+            const data = await response.json();
 
-        });
+            return data.success ? data.data : [];
 
-        return result;
-    },
+        } catch (error) {
+
+            console.error(error);
+            return [];
+
+        }
+    }
 
 };

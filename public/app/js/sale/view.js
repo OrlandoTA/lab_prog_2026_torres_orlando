@@ -56,7 +56,7 @@ export const viewSale = {
         // CASO: NO HAY RESULTADOS
         if (clientes.length === 0) {
             lista.innerHTML = `
-                <div class="no-result">
+                <div class="no-result" style ="color:red">
                     Cliente no encontrado
                 </div>
             `;
@@ -82,37 +82,37 @@ export const viewSale = {
         });
     },
 
-showProductSuggestions: (productos, activeIndex = -1) => {
+    showProductSuggestions: (productos, activeIndex = -1) => {
 
-    const lista = document.getElementById("lista-productos");
-    lista.innerHTML = "";
+        const listaProducto = document.getElementById("lista-productos");
+        listaProducto.innerHTML = "";
 
-    if (productos.length === 0) {
-        lista.innerHTML = `
-            <div class="no-result">
-                Producto no encontrado
-            </div>
-        `;
-        return;
-    }
-
-    productos.forEach((p, index) => {
-
-        const div = document.createElement("div");
-
-        div.classList.add("producto-item");
-
-        if (index === activeIndex) {
-            div.classList.add("active");
+        if (productos.length === 0) {
+            listaProducto.innerHTML = `
+                <div class="no-resultProducto style="color:red"">
+                    Producto no encontrado
+                </div>
+            `;
+            return;
         }
 
-        div.dataset.id = p.id;
+        productos.forEach((p, index) => {
 
-        div.textContent = `${p.nombre} - $${p.precio}`;
+            const divProductos = document.createElement("div");
 
-        lista.appendChild(div);
-    });
-},
+            divProductos.classList.add("productos-item");
+
+            if (index === activeIndex) {
+                divProductos.classList.add("active");
+            }
+
+            divProductos.dataset.id = p.id;
+
+            divProductos.textContent = `${p.nombre} - $${p.precio} - Stock: ${p.stock}`;
+
+            listaProducto.appendChild(divProductos);
+        });
+    },
 
 
 

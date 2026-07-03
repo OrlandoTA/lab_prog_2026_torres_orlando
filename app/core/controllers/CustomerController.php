@@ -149,11 +149,11 @@ class CustomerController extends BaseController{
     public function search(Request $request, Response $response){
         $buscar = $request->getParameterValue('buscar', '');
 
-
         $service = new CustomerService();
         $response->setData(
             $service->search($buscar),
         );
+        
 
         $response->send();
     }

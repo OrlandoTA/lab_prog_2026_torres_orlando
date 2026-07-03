@@ -48,7 +48,7 @@
             
             <input type="hidden" id = "productoId" name = "productoId">
 
-            <div class="lista-sugrencias" id="lista-productos"></div>
+            <div class="lista-sugrenciasProducto" id="lista-productos"></div>
     </div>
     <div class="campo">
        <label for="input-cantidad">Cantidad</label>

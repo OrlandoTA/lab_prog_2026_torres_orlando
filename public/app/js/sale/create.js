@@ -45,44 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
         lista.innerHTML = "";
     });
 
-    input.addEventListener("keydown", (e) => {
-
-        if (!clientesCache.length) return;
-
-        // ABAJO
-        if (e.key === "ArrowDown") {
-            activeIndex++;
-            if (activeIndex >= clientesCache.length) activeIndex = 0;
-
-            viewshow(clientesCache, activeIndex);
-        }
-
-        // ARRIBA
-        if (e.key === "ArrowUp") {
-            activeIndex--;
-            if (activeIndex < 0) activeIndex = clientesCache.length - 1;
-
-            viewshow(clientesCache, activeIndex);
-        }
-
-        // ENTER
-        if (e.key === "Enter") {
-
-            const selected = clientesCache[activeIndex];
-            if (!selected) return;
-
-            input.value = `${selected.apellido}, ${selected.nombres}`;
-            hidden.value = selected.id;
-
-            lista.innerHTML = "";
-        }
-    });
 
 
 
     //sUGESTIVO PARA PRODUCTO
     let productoCache = [];
-   
+   let activeIndexItem = -1;
 
     const inputProducto = document.getElementById("input-producto");
     const listaProducto = document.getElementById("lista-productos");
@@ -90,50 +58,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     inputProducto.addEventListener("input", async () => {
 
-        const texto = inputProducto.value.trim();
+        const textoProducto = inputProducto.value.trim();
 
-        if (texto.length < 2) {
+        if (textoProducto.length < 2) {
             listaProducto.innerHTML = "";
             return;
         }
 
-        productoCache = await itemService.search(texto);
-        activeIndex = -1;
+        productoCache = await itemService.search(textoProducto);
+        activeIndexItem = -1;
 
-        viewSale.showSuggestions(productoCache, activeIndex);
+        viewSale.showProductSuggestions(productoCache, activeIndexItem);
     });
 
     listaProducto.addEventListener("click", (e) => {
 
-        const item = e.target.closest(".clientes-item");
+        const item = e.target.closest(".productos-item");
         if (!item) return;
 
         const id = item.dataset.id;
-        const text = item.textContent;
+        const textoProducto = item.textContent;
 
-        inputProducto.value = text;
+        inputProducto.value = textoProducto;
         hiddenProducto.value = id;
 
         listaProducto.innerHTML = "";
     });
+    
     saleController.resetForm();
 
     saleController.enableForm(true);
 
 
 
+
     const btnCrear = document.getElementById('btn-guardarCambios');
-        const inputCliente = document.getElementById('input-cliente');
-            
-            
-        inputCliente.addEventListener('input', async () =>{
-            const texto = inputCliente.value.trim();
-            
-            if(texto.length < 2) return;
-
-            itemController.search(texto);
-        });
-
+        
     btnCrear.addEventListener('click', async (e) =>{
          
         //Evita que se envie instantaneamente

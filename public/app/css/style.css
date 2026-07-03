@@ -915,6 +915,28 @@ Create/sale
 .clientes-item.active {
     background: var(--color-btn-grisClaro-hover);
 }
+
+
+.lista-sugerenciasProducto {
+    position: absolute;
+    background: var(--color-btn-grisClaro-hover);
+    width: 300px;
+
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 999;
+}
+.productos-item {
+    padding: 8px;
+    border: 1px solid var(--color-btn-gris-hover);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.productos-item:hover,
+.productos-item.active {
+    background: var(--color-btn-grisClaro-hover);
+}
 /* =========================
 UTILIDADES
 ========================= */

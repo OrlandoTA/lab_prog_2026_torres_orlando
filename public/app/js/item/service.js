@@ -133,27 +133,25 @@ export const itemService = {
 
     search: async buscar => {
 
-        let result = [];
+        try {
 
-        await fetch("item/search", {
+        const body = new URLSearchParams();
+        body.append("buscar", buscar);
+
+        const response = await fetch("?controller=item&action=search", {
             method: "POST",
-            headers: {
-                "Content-Type":"application/json",
-                "Accept":"application/json"
-            },
-            body: JSON.stringify({
-                buscar
-            })
-        })
-        .then(r => r.json())
-        .then(data => {
-
-            if(data.success){
-                result = data.data;
-            }
-
+            body
         });
 
-        return result;
+        const data = await response.json();
+
+        return data.success ? data.data : [];
+
+        } catch (error) {
+
+            console.error(error);
+            return [];
+
+        }
     },
 };
