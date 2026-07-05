@@ -4,6 +4,7 @@ namespace app\core\services;
 
 use app\core\models\dto\CustomerDto;
 use app\core\models\dao\CustomerDao;
+use app\core\models\dao\ItemDao;
 use app\core\models\dao\DetailSaleDao;
 use app\core\services\base\BaseService;
 use app\core\models\dao\SaleDao;
@@ -31,6 +32,7 @@ final class SaleService extends BaseService{
         $saleId = $sale[0]['id'];
 
         $detalleDao = new DetailSaleDao(Connection::get());
+        $itemDao = new ItemDao(Connection::get());
 
         foreach ($dto->getDetalleS() as $item){
             $detalleDao->save([
@@ -41,8 +43,13 @@ final class SaleService extends BaseService{
                 'subtotal' => $item['subtotal']
 
             ]);
-        }
-            
+            //SE ACTUALIZA EL STOCK DE LOS PRODUCTOS
+       
+            $itemDao->descountStock([
+                'itemId'=>$item['itemId'],
+                'cantidad'=>$item['cantidad'],
+            ]);
+        }            
     }
 
 

@@ -10,7 +10,14 @@
             <input type="text" required disabled title="No editable" minlength="2" maxlength="100"
                 pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+" name="nombre" value="">
         </div>       
-
+         <div class="campo mitad">
+            <label for="autor">Autor</label>
+            <input
+                type="text"
+                id="autor"
+                name="autor"
+                maxlength="150">
+        </div>
     </div>
     <div class="fila">
         <div class="campo mitad">

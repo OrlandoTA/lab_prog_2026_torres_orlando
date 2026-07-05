@@ -96,19 +96,26 @@ document.addEventListener('DOMContentLoaded', () => {
     btnEliminar.addEventListener('click', async () => {
         try {
 
-            await itemController.delete(id);
+            
 
+        
             Swal.fire({
-                title: 'Producto eliminado',
-                text: 'El producto fue eliminado correctamente',
-                icon: 'success',
-                timer: 2000,
-                showConfirmButton: false
+            title: "Esta seguro que quiere eliminar?",
+            text: "No sera posible revertir!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, borrar!"
+            }).then((result) => {
+                if (result.isConfirmed) Swal.fire({
+                    title: "Eliminado!",
+                    text: "El producto fue eliminado.",
+                    icon: "success",
+                   
+                });
+                await  itemController.delete(id)
             });
-
-            setTimeout(() => {
-                window.location.href = 'index.php';
-            }, 2000);
 
         } catch (error) {
 

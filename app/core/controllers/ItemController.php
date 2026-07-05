@@ -33,10 +33,23 @@ class ItemController extends BaseController{
                 'title' => 'Gestión de productos',
             ] 
         ];
-     $this->requireProfile(['Administrador']);
+
+        $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
+
+        
     }
+
+    public function exportPdf(Request $request, Response $response){
+        $this->requireProfile(['Administrador']);
+        $service = new ItemService();
+        $items = $service->list([]);
+
+        require_once __DIR__ . '/../../resources/views/item/pdf.php';
+    }
+
+
 
     public function create(Request $request, Response $response){
         
@@ -59,6 +72,9 @@ class ItemController extends BaseController{
             ]
         ];
 
+        $categoryService = new CategoryService();
+        $this->categorias = $categoryService->list([]);
+        
         
         $this->requireProfile(['Administrador']);
 

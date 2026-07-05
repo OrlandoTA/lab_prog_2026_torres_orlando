@@ -5,7 +5,7 @@ namespace app\core\models\dto;
 
 final class ItemDto{
 
-    private string  $nombre, $codigo, $descripcion;
+    private string  $nombre, $codigo, $descripcion, $autor;
     private int $id, $stock;
     private float $precio;
     private array $categorias;
@@ -13,6 +13,7 @@ final class ItemDto{
     public function __construct(array $data = [])
     {
         $this->setNombre($data['nombre'] ?? '');
+        $this->setAutor($data['autor'] ?? '');
         $this->setCodigo($data['codigo']?? '');
         $this->setDescripcion($data['descripcion'] ?? '');
         $this->setCategorias($data['categorias'] ?? []);
@@ -37,6 +38,10 @@ final class ItemDto{
     
     public function getNombre(): string{
         return $this->nombre;
+    }
+
+    public function getAutor(): string{
+        return $this->autor;
     }
 
     public function getPrecio(): float{
@@ -76,6 +81,11 @@ final class ItemDto{
         $this->nombre = (strlen($nombreTrimeado) > 0 && strlen($nombreTrimeado) <= 100) ? $nombreTrimeado : "";
     }
 
+     public function setAutor(string $autor): void{
+        $autorTrimeado = trim($autor);
+        $this->autor = (strlen($autorTrimeado) > 0 && strlen($autorTrimeado) <= 100) ? $autorTrimeado : "";
+    }
+
     public function setPrecio(float $precio): void{
         $this->precio = ($precio >= 0.0) ? $precio: 0;
     }
@@ -89,6 +99,7 @@ final class ItemDto{
         return [
             'id'        => $this->getId(),
             'nombre'   => $this->getNombre(),
+            'autor'    => $this->getAutor(),
             'stock'    => $this->getStock(),
             'precio'    => $this->getPrecio(),
             'descripcion'    => $this->getDescripcion(),
@@ -100,6 +111,7 @@ final class ItemDto{
             'codigo'     => $this->getCodigo(), 
             'stock'  => $this->getStock(),
             'nombre'   => $this->getNombre(),
+            'autor'    => $this->getAutor(),
             'precio'    => $this->getPrecio(),
             'descripcion'    => $this->getDescripcion(),
         ];

@@ -5,10 +5,12 @@
     </h1>
 
 
-    <button type="button" class="btn-exportar" title="Exportar datos de usuarios">
+    <button type="button" class="btn-exportar" title="Exportar datos de usuarios" onclik>
         <ion-icon name="download-outline"></ion-icon>
         EXPORTAR
     </button>
+
+  
 
         
     <button class="btn-altas" id="btnNewItem" title="Ir a la pantalla de alta de producto" onclick="window.location.href='<?= APP_URL ?>?controller=item&action=create'">
@@ -36,12 +38,12 @@
             </button>
         </div>
     </div>
-
     <div class="contenedor-tabla">
         <table class="tabla" title="Tabla con listado de productos">
            <thead>
                 <tr>
                     <th title="Nombre del producto">NOMBRE</th>
+                    <th title="Autor del producto">AUTOR</th>
                     <th title="Código del producto">CÓDIGO</th>
                     <th title="Descripción del producto">DESCRIPCIÓN</th>
                     <th title="Precio del producto">PRECIO</th>
@@ -55,5 +57,8 @@
             
         </table>
     </div>
+
+
+    
 
 </div>

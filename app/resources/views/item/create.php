@@ -11,6 +11,14 @@
             pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ0-9 ]+"
             title="Escriba el nombre del producto (mínimo 3 caracteres, solo letras y números)" name="nombre">
         </div>
+        <div class="campo mitad">
+            <label for="autor">Autor</label>
+            <input
+                type="text"
+                id="autor"
+                name="autor"
+                maxlength="150">
+        </div>
 
         <div class="campo mitad">
             <label for="codigo" title="Ingrese el código del producto">ISBN<span class="obligatorio">*</span></label>

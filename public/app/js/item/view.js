@@ -19,6 +19,9 @@ export const view = {
                 <td>
                      ${items.nombre}
                 </td>
+                 <td>
+                     ${items.autor}
+                </td>
 
                 <td>
                     ${items.codigo}
@@ -68,6 +71,7 @@ export const view = {
             option.selected = set.has(option.value);
         }
         formFields['nombre'].value = items.nombre;
+        formFields['autor'].value = items.autor;
         formFields['descripcion'].value = items.descripcion;
         formFields['precio'].value = items.precio;
         formFields['stock'].value = items.stock;

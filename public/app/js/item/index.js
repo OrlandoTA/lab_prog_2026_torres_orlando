@@ -4,6 +4,8 @@ import { view } from './view.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     view.init();
+
+    itemController.exportPDF();
     const btnExportar = document.querySelector('.btn-exportar');
 
     btnExportar.addEventListener('click', ()=>{

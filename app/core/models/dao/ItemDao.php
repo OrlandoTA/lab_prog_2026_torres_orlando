@@ -33,7 +33,7 @@ final class ItemDao extends BaseDao implements InterfaceDao{
 
 
     public function load(int $id): array{
-        $sql = "SELECT nombre, descripcion, precio, stock FROM {$this->table} WHERE id = :id";
+        $sql = "SELECT nombre, autor,descripcion, precio, stock FROM {$this->table} WHERE id = :id";
         return $this->selectQuery($sql, ['id' => $id]); 
 
         //$this->selectQuery($sql,[])
@@ -41,7 +41,7 @@ final class ItemDao extends BaseDao implements InterfaceDao{
 
     public function save(array $data): void{
 
-        $sql = "INSERT INTO {$this->table} VALUES(DEFAULT, :nombre, :codigo, :descripcion, :precio, :stock)";
+        $sql = "INSERT INTO {$this->table} VALUES(DEFAULT, :nombre, :autor,:codigo, :descripcion, :precio, :stock)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($data);
     }
@@ -50,6 +50,7 @@ final class ItemDao extends BaseDao implements InterfaceDao{
 
         $sql = "UPDATE {$this->table} SET  
                     nombre =:nombre,  
+                    autor =:autor,
                     descripcion =:descripcion, 
                     precio =:precio, 
                     stock =:stock 
@@ -72,6 +73,14 @@ final class ItemDao extends BaseDao implements InterfaceDao{
         $result = $this->selectQuery($sql, ['codigo' => $codigo]);
 
         return $result;
+    }
+
+
+    //SE DESCUENTA EL STOCK 
+    public function descountStock(array $data):void{
+        $sql = "UPDATE {$this->table} SET stock = stock - :cantidad WHERE id = :itemId";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($data);
     }
 
     public function list(array $filters): array{

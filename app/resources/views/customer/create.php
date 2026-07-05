@@ -72,7 +72,7 @@
             <ion-icon name="save-outline"></ion-icon>
                 Crear usuario
         </button>
-        <button  type="button"  onclick="window.location.href='<?= APP_URL ?>?controller=user&action=index'" class="btn-volver" title="Volver al listado de usuarios">
+        <button  type="button"  onclick="window.location.href='<?= APP_URL ?>?controller=customer&action=index'" class="btn-volver" title="Volver al listado de usuarios">
         <ion-icon name="arrow-back-circle-outline"></ion-icon>    
             Volver
         </button>

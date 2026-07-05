@@ -5,30 +5,34 @@ document.addEventListener('DOMContentLoaded', () => {
     itemController.resetForm();
 
     itemController.enableForm(true);
-    const btnCrear = document.getElementById('btn-guardarCambios')
+    const btnCrear = document.getElementById('btn-guardarCambios');
+
 
     btnCrear.addEventListener('click', async (e) =>{
          
-        //Evita que se envie instantaneamente
-            e.preventDefault();
+        try {
 
-            try {
             await itemController.save();
-            } catch (error) {
-                console.error(error);
-            }
-          
 
-            //Mensaje de exito
-            Swal.fire({
+            await Swal.fire({
                 title: "Producto creado",
-                text: "You clicked the button!",
-                icon: "success"
+                text: "El producto se creó correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar"
             });
-            //Espera 2 segundos y luego envia el form
-            setTimeout(() => {
-                form.submit();
-            }, 2000);
+
+            itemController.cleanForm();
+
+        } catch (error) {
+
+            Swal.fire({
+                title: "Error",
+                text: error.message ?? "No se pudo guardar el producto.",
+                icon: "error"
+            });
+
+        }
+
     })
 
     const selectCategorias = document.getElementById('categorias-select');

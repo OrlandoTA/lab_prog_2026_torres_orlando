@@ -1,16 +1,19 @@
 import { itemService } from './service.js';
 import { view } from './view.js';
-import { viewSale } from '../sale/view.js'
+import { viewSale } from '../sale/view.js';
+
 
 //Variable para guardar el id del Producto a actualizar
 var currentItemId = null;
-
 const form = document.querySelector("form");
 
-const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, select, .btn-cancelar')
+const campos = document.querySelectorAll('input, select, .btn-guardar, .descripcion-producto, textarea, .btn-cancelar')
 
 const btnExportar = document.getElementById('btn-exportar');
 
+const input = document.querySelectorAll('input');
+const select = document.querySelectorAll('select');
+const textarea = document.querySelector('textarea')
 
 
 //Se construye el objeto itemController
@@ -72,7 +75,7 @@ export const itemController = {
     },
 
     exportPDF: function () {
-        
+        window.location.href='?controller=item&action=exportPdf';
     },
 
     resetForm: function () {
@@ -96,6 +99,12 @@ export const itemController = {
             campo.disabled = !enabled;
         });
     },
+
+    cleanForm: function(){
+        select.value = null;
+        input.value = ""    ;
+        textarea.value = "";
+    }
 
     
 
