@@ -52,6 +52,14 @@ final class SaleDao extends BaseDao implements InterfaceDao{
         $stmt->execute(['id' => $id]);
     }
 
+
+    public function searchId(string $numeroVenta):array{
+        $sql = "SELECT id FROM {$this->table} WHERE numeroVenta =:numeroVenta";
+        $result = $this->selectQuery($sql, ['numeroVenta' => $numeroVenta]);
+
+        return $result;
+    }
+
     public function list(array $filters): array{
         return $this->searchByFilter($filters);
     }

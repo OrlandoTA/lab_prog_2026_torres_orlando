@@ -48,6 +48,47 @@ export const viewSale = {
         })
     },
 
+    tablaDetalle: (detalles) => {
+        const tbody =
+        document.getElementById('detalle-venta');
+
+        tbody.innerHTML = '';
+
+        detalles.forEach((detalle,index) => {
+
+            tbody.innerHTML += `
+            <tr>
+                <td>${detalle.nombre}</td>
+                <td>${detalle.cantidad}</td>
+                
+                <td>$${detalle.precio}</td>
+                
+                <td>$${detalle.subtotal}</td>
+                <td>
+                    <button class="btn btn-eliminar" data-index="${index}">
+                        <ion-icon name="close-outline"></ion-icon>
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+            `;
+        })
+
+
+    },
+
+
+    totalVenta:(detalleVenta)=>{
+        const total = detalleVenta.reduce((acum, item)=>{
+        return acum + (item.subtotal);
+        }, 0);
+
+        document.getElementById("total").textContent = `${total.toFixed(2)}`;
+    },
+
+
+
+
     showSuggestions : (clientes, activeIndex = -1) => {
 
         const lista = document.getElementById("lista-clientes");

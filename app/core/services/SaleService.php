@@ -4,6 +4,7 @@ namespace app\core\services;
 
 use app\core\models\dto\CustomerDto;
 use app\core\models\dao\CustomerDao;
+use app\core\models\dao\DetailSaleDao;
 use app\core\services\base\BaseService;
 use app\core\models\dao\SaleDao;
 use app\libs\database\Connection;
@@ -23,6 +24,25 @@ final class SaleService extends BaseService{
     public function save(SaleDto $dto): void{
         $this->validate($dto);   
         $this->dao->save($dto->toArrayForSave());
+
+        //Se obtiene el id de la venta a traves de numero de venta
+        $sale = $this->dao->searchId($dto->getNumeroVenta());
+
+        $saleId = $sale[0]['id'];
+
+        $detalleDao = new DetailSaleDao(Connection::get());
+
+        foreach ($dto->getDetalleS() as $item){
+            $detalleDao->save([
+                'ventaId' => $saleId,
+                'productoId' => $item['itemId'],
+                'cantidad' => $item['cantidad'],
+                'precioUnitario' => $item['precio'],
+                'subtotal' => $item['subtotal']
+
+            ]);
+        }
+            
     }
 
 

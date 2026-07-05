@@ -44,7 +44,7 @@
     <div class="campo">
        
             <label for="input-producto" title="Seleccione un producto">Producto<span class="obligatorio">*</span></label>
-            <input type="text" id="input-producto" placeholder = "Buscar prdocuto..." autocomplete = "off">
+            <input type="text" id="input-producto" placeholder = "Buscar producto..." autocomplete = "off">
             
             <input type="hidden" id = "productoId" name = "productoId">
 
@@ -53,7 +53,7 @@
     <div class="campo">
        <label for="input-cantidad">Cantidad</label>
        <input type="number" id="input-cantidad" name="cantidad" min="1">
-        <button type="button" id="btn-agregarProducto">Agregar</button>
+        <button type="button" class="btn btn-guardar" id="btn-agregarProducto">Agregar</button>
     </div>
 
 
@@ -62,10 +62,14 @@
         <thead>
             <tr>
                 <th>Producto</th>
-                <th>Precio</th>
+
                 <th>Cantidad</th>
+
+                <th>Precio</th>
+
                 <th>Subtotal</th>
-                <th>Acción</th>
+
+
             </tr>
         </thead>
 

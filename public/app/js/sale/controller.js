@@ -26,13 +26,7 @@ export const saleController = {
 
     },
 
-    save: async function () {
-        let data = Object.fromEntries(new FormData(form));
-        /*
-        data.categorias = [...document.getElementById('categorias-select').selectedOptions]
-        .map(opcion => opcion.value);*/
-
-
+    save: async function (data) {
         await saleService.save(data);
     },
 

@@ -8,6 +8,7 @@ final class SaleDto {
     private string $formaPago;
     private int $id, $clienteId;
     private string $numeroVenta, $fecha;
+    private array $detalle;
 
 
     public function __construct(array $data = [])
@@ -17,10 +18,15 @@ final class SaleDto {
         $this->setFormaPago($data['formaPago'] ?? "");
         $this->setClienteId($data['clienteId'] ?? 0);
         $this->setFechaAlta($data['fecha'] ?? "");
+        $this->setDetalle($data['detalle'] ?? []);
     }
 
     public function getId(): int {
         return $this->id;
+    }
+
+    public function getDetalles():array{
+        return $this->detalle;
     }
     
     public function getFecha(): string{
@@ -53,6 +59,9 @@ final class SaleDto {
 
     public function setFormaPago(string $formaPago): void {
         $this->formaPago = trim($formaPago);
+    }
+    public function setDetalle(array $detalle):void{
+        $this->detalle = $detalle;
     }
     
     public function setFechaAlta(string $fecha): void{

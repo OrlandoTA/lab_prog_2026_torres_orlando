@@ -60,6 +60,12 @@ export const itemController = {
 
     },
 
+    tablaDeVenta: async( filters = {}) =>{
+        let items = await itemService.list(filters);
+        
+        viewSale.tablaDetalle(items);
+    },
+
     search: async buscar => {
         const productos = await itemService.search(buscar);
         viewSale.showProductSuggestions(productos);

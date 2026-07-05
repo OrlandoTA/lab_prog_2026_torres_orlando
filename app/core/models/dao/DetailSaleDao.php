@@ -18,13 +18,11 @@ final class DetailSaleDao extends BaseDao{
 
 
     public function save(array $data):void{
-
         $sql = "INSERT INTO {$this->table} 
-            VALUES (DEFAULT, :ventaId, :productoId, cantidad, precioUnitario, subtotal)";
+            VALUES (DEFAULT, :ventaId, :productoId, :cantidad, :precioUnitario, :subtotal)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($data);
     }
 
-    
 
 }

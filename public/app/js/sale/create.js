@@ -50,11 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //sUGESTIVO PARA PRODUCTO
     let productoCache = [];
-   let activeIndexItem = -1;
-
+    let activeIndexItem = -1;
+    let detalleVenta = [];
+    let productoSeleccionado = null;
     const inputProducto = document.getElementById("input-producto");
     const listaProducto = document.getElementById("lista-productos");
     const hiddenProducto = document.getElementById("productoId");
+    const inputCantidad = document.getElementById("input-cantidad");
+    const btnAgregarProducto = document.getElementById("btn-agregarProducto");
+
 
     inputProducto.addEventListener("input", async () => {
 
@@ -71,8 +75,100 @@ document.addEventListener('DOMContentLoaded', () => {
         viewSale.showProductSuggestions(productoCache, activeIndexItem);
     });
 
-    listaProducto.addEventListener("click", (e) => {
+    
+    
+    listaProducto.addEventListener('click', (e)=>{
+        const item = e.target.closest(".productos-item");
+        if (!item) return;
 
+        const id = parseInt(item.dataset.id);
+
+        productoSeleccionado = productoCache.find(p => p.id == id);
+
+        inputProducto.value = productoSeleccionado.nombre;
+        hiddenProducto.value = productoSeleccionado.id;
+
+        listaProducto.innerHTML = "";
+
+    });
+
+   
+
+    btnAgregarProducto.addEventListener("click", () => {
+
+        if (!productoSeleccionado) {
+            alert("Seleccione un producto");
+            return;
+        }
+
+        const cantidad = parseInt(inputCantidad.value);
+
+        //Se verifica que se agrege una cantidad valida
+        if (isNaN(cantidad) || cantidad <= 0) {
+            Swal.fire("Ingrese una cantidad válida");
+
+            return;
+        }
+
+        //Se verifica que se agrege una cantidad valida
+        if(cantidad > productoSeleccionado.stock){
+            Swal.fire(`Solo hay ${productoSeleccionado.stock} unidades de este producto `);
+            return;
+        }
+
+        const cantidadAgregada = detalleVenta.filter(d=> d.itemId == productoSeleccionado.id).reduce((total, d) => total + (d.cantidad) , 0);
+
+        if(cantidad + cantidadAgregada > productoSeleccionado.stock){
+            Swal.fire(`Solo queda ${productoSeleccionado.stock  - cantidadAgregada} unidades disponibles`);
+            return;
+        }
+
+        detalleVenta.push({
+            itemId: productoSeleccionado.id,
+            nombre: productoSeleccionado.nombre,
+            precio: productoSeleccionado.precio,
+            cantidad: cantidad,
+            subtotal: productoSeleccionado.precio * cantidad,
+        });
+
+
+        
+
+
+        viewSale.tablaDetalle(detalleVenta);
+        viewSale.totalVenta(detalleVenta);
+
+        // limpiar
+        productoSeleccionado = null;
+        inputProducto.value = "";
+        inputCantidad.value = null;
+        hiddenProducto.value = "";
+
+    });
+
+
+
+    //METODO PARA BORRAR UN PRODUCTO DEL CARRITO
+
+    const tbody = document.getElementById('detalle-venta'); 
+    
+    tbody.addEventListener("click", e => {
+        const boton = e.target.closest(".btn-eliminar");
+
+        if (!boton) return;
+
+        const index = boton.dataset.index;
+
+        detalleVenta.splice(index, 1);
+
+        viewSale.tablaDetalle(detalleVenta);
+        viewSale.totalVenta(detalleVenta);
+
+    });
+
+
+
+    listaProducto.addEventListener("click", (e) => {
         const item = e.target.closest(".productos-item");
         if (!item) return;
 
@@ -84,6 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         listaProducto.innerHTML = "";
     });
+
+
+
+
+
     
     saleController.resetForm();
 
@@ -93,26 +194,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const btnCrear = document.getElementById('btn-guardarCambios');
+    
         
     btnCrear.addEventListener('click', async (e) =>{
          
         //Evita que se envie instantaneamente
-            e.preventDefault();
+        e.preventDefault();
+        const venta =  Object.fromEntries(new FormData(form));
+        venta.detalle = detalleVenta;
 
-            await saleController.save();
+        await saleController.save(venta);
+        
+        //Mensaje de exito
+        Swal.fire({
+            title: "Venta creada",
+            text: "La venta se creo con exito!",
+            icon: "success"
+        });
+        
 
-          
-
-            //Mensaje de exito
-            Swal.fire({
-                title: "Venta creada",
-                text: "You clicked the button!",
-                icon: "success"
-            });
-            //Espera 2 segundos y luego envia el form
-            setTimeout(() => {
-                form.submit();
-            }, 2000);
     })
 
     /*
