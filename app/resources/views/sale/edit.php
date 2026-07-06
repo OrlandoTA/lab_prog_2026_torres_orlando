@@ -2,7 +2,7 @@
     <h1 title="Formulario de alta de venta">Alta de Venta</h1>
 </div>
 
-<form action="" class="formulario-alta" title="Formulario para registrar una venta" autocomplete="off"  name="formEditSales" id ="formEditSales">
+<form action="" class="formulario-alta" id = "formulario-alta" title="Formulario para registrar una venta" autocomplete="off"  name="formEditSales" id ="formEditSales">
 
     <div class="fila">
         <div class="campo mitad">

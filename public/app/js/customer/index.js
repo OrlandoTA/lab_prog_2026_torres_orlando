@@ -16,10 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
 
+    // ==========================
+    // EXPORTAR PDF
+    // ==========================
+
     const btnExportar = document.querySelector('.btn-exportar');
 
     btnExportar.addEventListener('click' , () =>{
-        window.print();
+        customerController.exportTablaPDF('#tabla-clientes');
     })
 
     // ==========================
@@ -49,10 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
     });
 
-    // ==========================
-    // EXPORTAR PDF
-    // ==========================
-    customerController.exportPDF();
 
     document.getElementById('tbody-clientes').onclick = (e) => {
 

@@ -2,14 +2,15 @@
 import { itemController } from './controller.js';
 import { view } from './view.js';
 
+
 document.addEventListener('DOMContentLoaded', () => {
     view.init();
 
-    itemController.exportPDF();
+    
     const btnExportar = document.querySelector('.btn-exportar');
 
     btnExportar.addEventListener('click', ()=>{
-        window.print();
+        itemController.exportTablaPDF('#exportable')
     })
 
     // Cargar usuarios al abrir la página

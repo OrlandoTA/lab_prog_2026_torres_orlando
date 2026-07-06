@@ -51,7 +51,7 @@
             </div>
 
             <div class="contenedor-tabla">
-                <table id="tabla-ventas" class="tabla" title="Tabla de ventas registrados">
+                <table id="tabla-ventas"  class="tabla" title="Tabla de ventas registrados">
 
                     <thead>
                         <tr>

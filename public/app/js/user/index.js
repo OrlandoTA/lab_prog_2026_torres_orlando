@@ -9,9 +9,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     const btnExportar = document.querySelector('.btn-exportar');
-    btnExportar.addEventListener('click', ()=>{
-        window.print();;
-    })
+        // ==========================
+        // EXPORTAR PDF
+        // ==========================
+        btnExportar.addEventListener('click', ()=>{
+            userController.exportTablaPDF("#tabla-usuarios")
+        })
 
 
     // ==========================
@@ -43,10 +46,6 @@ document.addEventListener('DOMContentLoaded', async () => {
        
     });
 
-    // ==========================
-    // EXPORTAR PDF
-    // ==========================
-    userController.exportPDF();
 
     document.getElementById('tbody-usuarios').onclick = (e) => {
 

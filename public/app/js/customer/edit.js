@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnEliminar = document.getElementById('btn-eliminar');
     const btnVolver = document.getElementById('btnVolver');
 
+      const btnExportar = document.getElementById('btn-exportar');
+    
+        btnExportar.addEventListener('click', ()=>{
+            customerController.exportFormPDF( 'formulario-alta', 'Alta de cliente');
+        })
+
     if(btnVolver){
         btnVolver.addEventListener('click', ()=>{
             window.location.href = '?controller=customer&action=index';

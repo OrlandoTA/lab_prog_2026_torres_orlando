@@ -41,13 +41,6 @@ class ItemController extends BaseController{
         
     }
 
-    public function exportPdf(Request $request, Response $response){
-        $this->requireProfile(['Administrador']);
-        $service = new ItemService();
-        $items = $service->list([]);
-
-        require_once __DIR__ . '/../../resources/views/item/pdf.php';
-    }
 
 
 

@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnExportar = document.getElementById('btn-exportar');
 
     btnExportar.addEventListener('click', ()=>{
-        window.print();
+        userController.exportFormPDF( 'formulario-alta', 'Alta de usuario');
     })
+
 
     if(btnVolver){
         btnVolver.addEventListener('click', ()=>{

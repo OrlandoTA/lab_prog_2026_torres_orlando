@@ -1,4 +1,4 @@
-<form action="" class="formulario-alta" name="formEditCustomer" title="Formulario para editar un cliente existente" autocomplete="off" id="formEditCustomer">
+<form action="" class="formulario-alta"  id = "formulario-alta" name="formEditCustomer" title="Formulario para editar un cliente existente" autocomplete="off" id="formEditCustomer">
   <div class="fila">
         <div class="campo mitad">
             <label for="apellido" title="Ingrese el apellido del cliente">Apellido <span class="obligatorio">*</span></label>

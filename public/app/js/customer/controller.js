@@ -59,19 +59,84 @@ export const customerController = {
 
     },
 
+    exportTablaPDF: function(idTabla) {
 
+        const { jsPDF } = window.jspdf;
 
-    exportPDF: function () {
+        const doc = new jsPDF("l", "mm", "a4");
 
-        
+        const titulo = document.querySelector(".titulo-modulo h1").innerText;
 
+        doc.setFontSize(18);
 
-        if (!btnExportar) return;
+        doc.text(titulo, 15, 15);
 
-        //El boton se ejecuta si se hace click en el 
-        btnExportar.addEventListener('click', () => {
-            window.print();
-        })
+        doc.autoTable({
+            html: idTabla,
+            startY: 25
+        });
+
+        doc.save("archivo.pdf");
+
+    },
+
+   exportFormPDF(formId, titulo) {
+        const { jsPDF } = window.jspdf;
+
+        const doc = new jsPDF();
+
+        const form = document.getElementById(formId);
+
+        const elementos = form.querySelectorAll("input, select, textarea");
+
+        let y = 20;
+
+        doc.setFontSize(18);
+        doc.text(titulo, 20, y);
+
+        y += 15;
+
+        elementos.forEach(campo => {
+
+            if (
+                campo.type === "button" ||
+                campo.type === "submit" ||
+                campo.type === "hidden"
+            ) {
+                return;
+            }
+
+            let textoLabel = "";
+
+            const label = form.querySelector(`label[for="${campo.id}"]`);
+
+            if (label) {
+                textoLabel = label.textContent.replace("*", "").trim();
+            } else {
+                textoLabel = campo.name;
+            }
+
+            let valor = campo.value;
+
+            if (campo.tagName === "SELECT") {
+                valor = campo.options[campo.selectedIndex]?.text ?? "";
+            }
+
+            doc.setFontSize(11);
+
+            doc.text(`${textoLabel}: ${valor}`, 20, y);
+
+            y += 8;
+
+            if (y > 270) {
+                doc.addPage();
+                y = 20;
+            }
+
+        });
+
+        doc.save(`${titulo}.pdf`);
+
     },
 
     resetForm: function () {

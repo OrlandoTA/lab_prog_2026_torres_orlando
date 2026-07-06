@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnExportar = document.getElementById('btn-exportar');
     btnExportar.addEventListener('click', ()=>{
-        window.print();
+      
+        itemController.exportFormPDF( 'formulario-alta', 'Alta de producto');
     })
 
 
@@ -114,8 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     icon: "success",
                    
                 });
-                await  itemController.delete(id)
+               
             });
+             await  itemController.delete(id)
 
         } catch (error) {
 

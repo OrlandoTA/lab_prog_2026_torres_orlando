@@ -12,9 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fecha_fin = document.getElementById("fecha-hasta")
     const btnExportar = document.querySelector('.btn-exportar');
 
-    btnExportar.addEventListener('click' , () =>{
-        window.print();
-    })
+
 
     
 
@@ -65,8 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==========================
         // EXPORTAR PDF
         // ==========================
-        saleController.exportPDF();
-    
+        btnExportar.addEventListener('click', ()=>{
+            saleController.exportTablaPDF("#tabla-ventas")
+        })
+        
         document.getElementById('tbody-ventas').onclick = (e) => {
     
             const boton = e.target.closest('.btn-editar');

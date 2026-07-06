@@ -1,4 +1,4 @@
-<div class="titulo-modulo">
+<div class="titulo-modulo" id="titulo-modulo">
     <h1 title="Listado de productos registrados">
         <ion-icon name="basket-outline" title="Productos"></ion-icon>
         Gestión de Productos
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="contenedor-tabla">
-        <table class="tabla" title="Tabla con listado de productos">
+        <table class="tabla" title="Tabla con listado de productos" id= "exportable">
            <thead>
                 <tr>
                     <th title="Nombre del producto">NOMBRE</th>

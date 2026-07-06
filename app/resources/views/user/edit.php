@@ -1,4 +1,4 @@
-<form action="" class="formulario-alta" name="formEditUser" title="Formulario para editar un usuario existente" autocomplete="off" id="formEditUser">
+<form action="" class="formulario-alta"  id = "formulario-alta" name="formEditUser" title="Formulario para editar un usuario existente" autocomplete="off" id="formEditUser">
 
     <div class="fila">
             <div class="campo mitad">
