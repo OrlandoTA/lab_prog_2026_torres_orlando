@@ -35,6 +35,12 @@ export const userController = {
         data.estado = document.getElementById('estado-cuenta').checked ? 1 : 0;
         await userService.update(data);
     },
+    
+    updatePass: async function () {
+        let data = Object.fromEntries(new FormData(form));
+       
+        await userService.updatePass(data);
+    },
 
     delete: async function (id) {
 
@@ -159,5 +165,11 @@ export const userController = {
             campo.disabled = !enabled;
         });
     },
+    
+    cleanForm: function(){
+        select.value = null;
+        input.value = ""    ;
+        textarea.value = "";
+    }
 
 }

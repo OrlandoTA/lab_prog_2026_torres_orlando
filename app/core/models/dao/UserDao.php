@@ -20,6 +20,8 @@ final class UserDao extends BaseDao implements InterfaceDao{
         return $this->selectQuery($sql, ['id' => $id]);
         
     }
+
+    
     
 
     public function save(array $data): void{
@@ -131,16 +133,14 @@ final class UserDao extends BaseDao implements InterfaceDao{
         ]);
     }
 
-  public function reset(UserDto $dto): void{
+  public function reset(int $id): void{
         $sql = "UPDATE {$this->table}
                 SET resetPass = 1
                 WHERE id = :id";
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->execute([
-            'id' => $dto->getId()
-        ]);
+        $stmt->execute(['id' => $id]);
     }
 
 

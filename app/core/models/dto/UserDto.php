@@ -139,6 +139,13 @@ final class UserDto{
         ];
     }
 
+    public function toUpdatePass(){
+        return [
+            'id'=> $this->getId(),
+            'clave'     => $this->getClave(),
+        ];
+    }
+
     public function toArrayForSave(){
         return [
             'apellido'  => $this->getApellido(),

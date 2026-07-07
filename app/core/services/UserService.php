@@ -41,6 +41,12 @@ final class UserService extends BaseService{
 
         $this->dao-> delete($dto->getId());
     }
+    public function updatePass(UserDto $dto):void{
+        $this->validateForUpdatePass($dto);
+        
+        $this->dao-> reset($dto->getId());
+        $this->dao-> updatePassword($dto->toUpdatePass());
+    }
 
     
     public function list(array $filters):array{
@@ -88,7 +94,12 @@ final class UserService extends BaseService{
         $this->dao->validateCorreo($dto->getId(), $dto->getCorreo());
 
         $this->dao->validateCuenta($dto->getId(), $dto->getCuenta());
+    }
 
+    public function validateForUpdatePass(UserDto $dto){
+         if($dto->getId() <= 0){
+            throw new \Exception("El usuario no existe.");
+        }
     }
 
     //Se verifica si el usuario existe antes de eliminarlo

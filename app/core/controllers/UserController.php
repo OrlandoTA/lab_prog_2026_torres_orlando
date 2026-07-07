@@ -45,9 +45,27 @@ class UserController extends BaseController{
                 'title' => 'Perfil',
             ] 
         ];
+
+       
         $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
+    }
+
+    public function updatePass(Request $request, Response $response){
+        $userId = $_SESSION['usuarioId'];
+        $data = $request->getDataFromInput();
+
+        $dto = new UserDto([
+            'id' => $userId,
+            'clave' => $data['clave'],
+        ]);
+
+        $service = new UserService();
+        $service->updatePass($dto);
+
+        $response->send();
+
     }
     
 
@@ -144,7 +162,7 @@ class UserController extends BaseController{
             ]
         ];
 
- $this->requireProfile(['Administrador']);
+        $this->requireProfile(['Administrador']);
         $this->setCurrentView($request);
         require_once(APP_FILE_TEMPLATE);
     }
